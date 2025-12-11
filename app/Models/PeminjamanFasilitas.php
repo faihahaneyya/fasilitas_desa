@@ -1,0 +1,126 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class PeminjamanFasilitas extends Model
+{
+    use HasFactory, SoftDeletes;
+
+    protected $table = 'peminjaman_fasilitas';
+    protected $primaryKey = 'pinjam_id';
+
+    protected $fillable = [
+        'fasilitas_id',
+        'warga_id',
+        'tanggal_mulai',
+        'tanggal_selesai',
+        'tujuan',
+        'status',
+        'total_biaya',
+        'catatan'
+    ];
+
+    protected $casts = [
+        'pinjam_id' => 'integer',
+        'fasilitas_id' => 'integer',
+        'warga_id' => 'integer',
+        'tanggal_mulai' => 'date',
+        'tanggal_selesai' => 'date',
+        'total_biaya' => 'decimal:2',
+    ];
+
+    // Relationship dengan FasilitasUmum
+    public function fasilitas()
+    {
+        return $this->belongsTo(FasilitasUmum::class, 'fasilitas_id', 'fasilitas_id');
+    }
+
+    // Relationship dengan Warga
+    public function warga()
+    {
+        return $this->belongsTo(Warga::class, 'warga_id', 'warga_id');
+    }
+
+    // Accessor untuk durasi peminjaman
+    public function getDurasiAttribute()
+    {
+        $start = \Carbon\Carbon::parse($this->tanggal_mulai);
+        $end = \Carbon\Carbon::parse($this->tanggal_selesai);
+        return $start->diffInDays($end) + 1;
+    }
+
+    // Accessor untuk format status
+    public function getStatusColorAttribute()
+    {
+        $colors = [
+            'pending' => 'warning',
+            'approved' => 'success',
+            'rejected' => 'danger',
+            'completed' => 'info',
+            'cancelled' => 'secondary',
+        ];
+
+        return $colors[$this->status] ?? 'dark';
+    }
+
+    // Accessor untuk status label
+    public function getStatusLabelAttribute()
+    {
+        $labels = [
+            'pending' => 'Menunggu',
+            'approved' => 'Disetujui',
+            'rejected' => 'Ditolak',
+            'completed' => 'Selesai',
+            'cancelled' => 'Dibatalkan',
+        ];
+
+        return $labels[$this->status] ?? $this->status;
+    }
+
+    // Scope untuk pencarian
+    public function scopeSearch($query, $search)
+    {
+        return $query->whereHas('warga', function ($q) use ($search) {
+                    $q->where('nama', 'like', "%{$search}%")
+                      ->orWhere('no_ktp', 'like', "%{$search}%");
+                })
+                ->orWhereHas('fasilitas', function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%");
+                })
+                ->orWhere('tujuan', 'like', "%{$search}%");
+    }
+
+    // Scope untuk filter berdasarkan status
+    public function scopeByStatus($query, $status)
+    {
+        if ($status) {
+            return $query->where('status', $status);
+        }
+        return $query;
+    }
+
+    // Validasi tanggal tidak boleh double booking
+    public static function isAvailable($fasilitas_id, $tanggal_mulai, $tanggal_selesai, $excludeId = null)
+    {
+        $query = self::where('fasilitas_id', $fasilitas_id)
+            ->where('status', 'approved')
+            ->where(function ($q) use ($tanggal_mulai, $tanggal_selesai) {
+                $q->whereBetween('tanggal_mulai', [$tanggal_mulai, $tanggal_selesai])
+                  ->orWhereBetween('tanggal_selesai', [$tanggal_mulai, $tanggal_selesai])
+                  ->orWhere(function ($q2) use ($tanggal_mulai, $tanggal_selesai) {
+                      $q2->where('tanggal_mulai', '<=', $tanggal_mulai)
+                         ->where('tanggal_selesai', '>=', $tanggal_selesai);
+                  });
+            });
+
+        if ($excludeId) {
+            $query->where('pinjam_id', '!=', $excludeId);
+        }
+
+        return $query->count() == 0;
+    }
+}

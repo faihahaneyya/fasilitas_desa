@@ -18,9 +18,9 @@
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
                     <ul class="dropdown-menu arrow" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="about-us.html">Warga</a></li>
-                        <li><a class="dropdown-item" href="contact.html">Contact</a></li>
-                        <li><a class="dropdown-item" href="faq.html">FAQ</a></li>
+                        <li><a class="dropdown-item" href="{{route('warga.index')}}">Warga</a></li>
+                        <li><a class="dropdown-item" href="{{route(name: 'fasilitas.index')}}">Fasilitas Umum</a></li>
+                        <li><a class="dropdown-item" href="{{route(name: 'peminjaman.index')}}">Peminjaman Fasilitas</a></li>
                         <li><a class="dropdown-item" href="jobs.html">Jobs</a></li>
                     </ul>
                 </li>

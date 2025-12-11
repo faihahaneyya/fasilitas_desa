@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,7 +9,7 @@ class FasilitasUmum extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'fasilitas_umum';
+    protected $table      = 'fasilitas_umum';
     protected $primaryKey = 'fasilitas_id';
 
     protected $fillable = [
@@ -20,12 +19,12 @@ class FasilitasUmum extends Model
         'rt',
         'rw',
         'kapasitas',
-        'deskripsi'
+        'deskripsi',
     ];
 
     protected $casts = [
         'fasilitas_id' => 'integer',
-        'kapasitas' => 'integer',
+        'kapasitas'    => 'integer',
     ];
 
     public function getLokasiAttribute()
@@ -43,25 +42,30 @@ class FasilitasUmum extends Model
     public function scopeSearch($query, $search)
     {
         return $query->where('name', 'like', "%{$search}%")
-                    ->orWhere('jenis', 'like', "%{$search}%")
-                    ->orWhere('alamat', 'like', "%{$search}%");
+            ->orWhere('jenis', 'like', "%{$search}%")
+            ->orWhere('alamat', 'like', "%{$search}%");
     }
 
     public function getJenisColorAttribute()
     {
         $colors = [
-            'aula' => 'primary',
-            'lapangan' => 'success',
-            'kantor' => 'info',
-            'puskesmas' => 'danger',
-            'sekolah' => 'warning',
+            'aula'       => 'primary',
+            'lapangan'   => 'success',
+            'kantor'     => 'info',
+            'puskesmas'  => 'danger',
+            'sekolah'    => 'warning',
             'poskamling' => 'secondary',
-            'masjid' => 'success',
-            'gereja' => 'info',
-            'pura' => 'warning',
-            'vihara' => 'secondary',
+            'masjid'     => 'success',
+            'gereja'     => 'info',
+            'pura'       => 'warning',
+            'vihara'     => 'secondary',
         ];
 
         return $colors[strtolower($this->jenis)] ?? 'dark';
+    }
+
+    public function peminjaman()
+    {
+        return $this->hasMany(PeminjamanFasilitas::class, 'fasilitas_id');
     }
 }
