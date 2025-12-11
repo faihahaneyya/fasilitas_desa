@@ -1,0 +1,76 @@
+/* 
+// variables.scss
+*/
+
+
+/* Google font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+// Color variables
+
+$white:             #ffffff;
+$gray-100:          #f3f6fa;
+$gray-200:          #eeeeee;
+$gray-300:          #dee2e6;
+$gray-400:          #DDDDDD;
+$gray-500:          #adb5bd;
+$gray-600:          #95A8B7;
+$gray-700:          #496174;
+$gray-800:          #343a40;
+$gray-900:          #2f3e47;
+$black:             #000000;
+
+
+
+$blue:             #4db5ed;
+$purple:           #8066e9;
+$pink:             #f06595;
+$red:              #e55a55;
+$orange:           #ffbd00;
+$pink:             #ff8acc;
+$yellow:           #f9e605;
+$green:            #01bf86;
+$teal:             #00b19d;
+$cyan:             #56c6e6;
+$muted:            $gray-600;
+
+
+
+$primary:             $green;
+$secondary:           $gray-700;
+$blue:                $blue;
+$info:                $cyan;
+$warning:             $yellow;
+$danger:              $red;
+$pink:                $pink;
+$light:               $gray-300;
+$muted:               $muted;
+$dark:                $gray-800;
+$white:               $white;
+
+
+$theme-colors: (
+    "primary":        $green,
+    "secondary":      $secondary,
+    "blue":           $blue,
+    "info":           $info,
+    "warning":        $warning,
+    "danger":         $danger,
+    "pink":           $pink,
+    "dark":           $gray-800,
+    "muted":          $muted,
+    "light":          $gray-300,
+    "white":          $white,
+    "teal":           $teal,
+);
+
+// body bg
+$body-bg:             #ffffff;
+
+
+
+
+// Font
+$font-primary:            'Roboto', sans-serif;
+$font-secondary:          'Roboto', sans-serif;
+

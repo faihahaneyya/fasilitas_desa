@@ -1,0 +1,63 @@
+//
+// 5. Hero
+//
+.home-fullscreen {
+  height: 100vh;
+  min-height: 400px;
+}
+
+.home-wrapper {
+  padding: 200px 0px 150px 0px;
+  h1 {
+      line-height: 46px;
+      width: 80%;
+      margin: 0 auto;
+  }
+  h4 {
+      line-height: 24px;
+      font-size: 16px;
+      font-weight: 400;
+      width: 80%;
+      margin: 30px auto 50px auto;
+  }
+}
+
+.home-sm {
+  padding: 175px 0px 125px 0px !important;
+  .h1 {
+      margin-top: 30px !important;
+  }
+}
+
+.home-wrapper-alt {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.full-screen {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+
+.or-space {
+  margin: 0 20px;
+}
+
+iframe {
+  max-width: 100%;
+}
+
+.frame-border {
+  border: 9px solid rgba($black, 0.3);
+  border-radius: 5px 5px 5px 5px;
+}
+
+@media (max-width: 768px) {
+  .home-fullscreen {
+      height: auto !important;
+  }
+  .home-wrapper {
+      padding: 150px 0px 110px 0px;
+  }
+}

@@ -1,0 +1,45 @@
+//
+// 12. Contact
+//
+.contact-form {
+  .form-control {
+      height: 42px;
+      box-shadow: none;
+      border: 2px solid rgba($gray-900, 0.3);
+  }
+}
+
+textarea {
+  max-width: 100%;
+  &.form-control {
+      height: auto !important;
+  }
+}
+
+
+
+.contact-detail {
+  margin-bottom: 40px;
+  i {
+      float: left;
+      width: 40px;
+      font-size: 24px;
+  }
+  p,
+  address {
+      overflow: hidden;
+  }
+  a {
+      color: $gray-700;
+  }
+}
+
+.parsley-errors-list {
+  padding-left: 0px;
+  li {
+      list-style: none;
+      color: $danger;
+      margin-top: 3px;
+      font-size: 13px;
+  }
+}

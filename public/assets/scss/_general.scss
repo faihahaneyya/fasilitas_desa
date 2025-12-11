@@ -1,0 +1,37 @@
+//
+// 1. General
+//
+
+
+body {
+    font-family: $font-primary;
+    color: $gray-700;
+    font-size: 14px;
+    background: $body-bg;
+    line-height: 22px;
+    overflow-x:hidden;
+}
+
+a, a:hover,a:focus,.a:active {
+    text-decoration: none;
+    outline: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $font-secondary;
+}
+
+
+html {
+    scroll-padding-top: 71px; /* height of sticky header */
+  }
+
+.row > * {
+    position: relative;
+}
+
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1140px;
+    }
+}

@@ -1,0 +1,119 @@
+//
+// 2. Menu
+//
+
+.navbar-custom {
+    width: 100%;
+    border-radius: 0px;
+    z-index: 999;
+    padding: 15px 0px;
+    margin-bottom: 0px;
+    transition: all 0.5s ease-in-out;
+    .navbar-nav {
+        li {
+            a {
+                color: rgba($white, 0.75);
+                font-size: 15px;
+                margin: 10px 0px;
+                padding: 4px 15px !important;
+            }
+            &.active {
+                a {
+                    background-color: transparent;
+                    color: $white;
+                }
+            }
+        }
+        .nav-link {
+            color: rgba($white, 0.75);
+            &:focus,
+            &:hover {
+                color: $white;
+            }
+        }
+    }
+    .nav {
+        >li {
+            >a {
+                &:focus,
+                &:hover {
+                    background-color: transparent;
+                    color: $white;
+                }
+            }
+        }
+    }
+}
+
+.navbar-toggler {
+    font-size: 20px;
+    border: none !important;
+    outline: none !important;
+    .icon-bar {
+        background-color: $white;
+    }
+}
+
+.navbar-btn {
+    padding: 5px 20px !important;
+    text-transform: none !important;
+    font-weight: 400 !important;
+    margin-top: 8px !important;
+}
+
+.logo {
+    font-weight: 500;
+    font-size: 22px;
+    color: $white !important;
+    letter-spacing: 1px;
+}
+
+.navbar-toggle {
+    font-size: 30px;
+}
+
+.navbar-custom {
+    .btn-custom {
+        margin-top: 8px;
+        margin-left: 20px;
+    }
+}
+
+.nav {
+    .open {
+        >a,
+        a:hover,
+        a:focus {
+            background-color: transparent;
+            border-color: $blue;
+        }
+    }
+}
+
+.is-sticky {
+    &.navbar-custom {
+        padding: 10px 0px !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .nav-custom-left {
+        margin-left: 5%;
+    }
+    .navbar-nav {
+        >li {
+            >a {
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-custom {
+        >.container {
+            width: 90%;
+        }
+    }
+}

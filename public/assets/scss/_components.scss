@@ -1,0 +1,177 @@
+//
+// 3. Components
+//
+.btn {
+    border-radius: 2px;
+    padding: 8px 24px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-radius: 50px;
+    font-size: 14px;
+    outline: none !important;
+    box-shadow: none !important;
+    &:focus {
+        box-shadow: none !important;
+    }
+    &.btn-sm {
+        padding: 5px 10px !important;
+    }
+    @each $color,
+    $value in $theme-colors {
+        &.btn-#{$color} {
+            background-color: #{$value} !important;
+            border: 2px solid #{$value} !important;
+            color: $white !important;
+            &:hover,
+            &:focus,
+            &.focus,
+            &:active,
+            &.active {
+                background-color: transparent !important;
+                border: 2px solid $value !important;
+                color: $value !important;
+                box-shadow: none !important;
+            }
+        }
+        &.btn-outline-#{$color} {
+            border: 2px solid #{$value} !important;
+            color: #{$value} !important;
+            &:hover,
+            &:focus,
+            &.focus,
+            &:active,
+            &.active {
+                background-color: #{$value} !important;
+                border: 2px solid #{$value} !important;
+                box-shadow: none;
+                color: $white !important;
+            }
+        }
+    }
+    &.btn-light,
+    &.btn-white {
+        background-color: $white;
+        border: 2px solid rgba($white, 0.75);
+        color: $primary !important;
+        &:hover,
+        &:focus,
+        &.focus,
+        &:active,
+        &.active {
+            background-color: transparent;
+            border: 2px solid rgba($white, 0.75);
+            color: $white !important;
+            box-shadow: none;
+        }
+    }
+    &.btn-outline-light,
+    &.btn-outline-white {
+        &:hover,
+        &:focus,
+        &.focus,
+        &:active,
+        &.active {
+            background-color: $white;
+            color: $primary !important;
+            box-shadow: none;
+        }
+    }
+}
+
+// video-btn
+.video-btn {
+    color: $white !important;
+    letter-spacing: 1px;
+    outline: none !important;
+    i {
+        margin-right: 7px;
+        width: 20px;
+        height: 20px;
+        border: 2px solid $white;
+        border-radius: 50%;
+        line-height: 17px;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 12px;
+        padding-left: 3px;
+        margin-left: -12px;
+    }
+}
+
+// Dropdown
+.dropdown-menu {
+    box-shadow: none;
+    padding: 4px;
+    border-radius: 4px !important;
+    -webkit-animation: dropdownOpen 0.3s ease-out;
+    -o-animation: dropdownOpen 0.3s ease-out;
+    animation: dropdownOpen 0.3s ease-out;
+    border: 2px solid $gray-200;
+    >li {
+        >a {
+            padding: 6px 20px;
+            font-size: 15px !important;
+            color: $gray-700 !important;
+            &:hover,
+            &:focus {
+                color: $white !important;
+            }
+        }
+    }
+}
+
+@keyframes dropdownOpen {
+    0% {
+        -webkit-transform: scale(0);
+        -ms-transform: scale(0);
+        -o-transform: scale(0);
+        transform: scale(0);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+// Modal-box
+.modal {
+    .video-modal {
+        border: 0;
+        background-color: transparent;
+        .video-box {
+            position: relative;
+        }
+        .btn-close {
+            width: 26px;
+            height: 26px;
+            background-color: rgba($white, 0.5);
+            border-radius: 6px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            opacity: 0;
+            z-index: 3;
+            video {
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+        &:hover {
+            .btn-close {
+                opacity: 0.5;
+            }
+        }
+    }
+}
+
+
+// Alert
+.alert {
+    padding: 0.75rem;
+}

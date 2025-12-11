@@ -1,0 +1,117 @@
+//
+// 7. Pricing
+//
+.pricing-column {
+  position: relative;
+  margin-bottom: 40px;
+  .inner-box {
+      position: relative;
+      margin: 20px auto 0px auto;
+      max-width: 320px;
+      padding: 0px 30px 50px;
+      border: 2px solid $gray-600;
+      p {
+          padding: 0px 20px;
+          text-align: center;
+          font-size: 15px;
+          line-height: 26px;
+          color: darken($gray-600, 6%);
+          margin-bottom: 30px;
+      }
+      &.active {
+          transform: scale(1.05);
+      }
+  }
+  .plan-header {
+      position: relative;
+      padding: 30px 20px 25px;
+      .plan-title {
+          font-size: 16px;
+          margin-bottom: 10px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          font-weight: 400;
+      }
+      .plan-price {
+          font-size: 38px;
+          margin-bottom: 10px;
+          font-weight: 700;
+      }
+      .plan-duration {
+          font-size: 13px;
+          color: $gray-600;
+      }
+  }
+  .plan-stats {
+      position: relative;
+      padding: 30px 20px 15px;
+      li {
+          margin-bottom: 15px;
+          line-height: 24px;
+          i {
+              font-size: 18px;
+              width: 26px;
+              vertical-align: middle;
+          }
+      }
+  }
+}
+
+//
+// 7. Pricing
+//
+.pricing-column {
+  position: relative;
+  margin-bottom: 40px;
+  .inner-box {
+      position: relative;
+      margin: 20px auto 0px auto;
+      max-width: 320px;
+      padding: 0px 30px 50px;
+      border: 2px solid $gray-600;
+      p {
+          padding: 0px 20px;
+          text-align: center;
+          font-size: 15px;
+          line-height: 26px;
+          color: darken($gray-600, 6%);
+          margin-bottom: 30px;
+      }
+      &.active {
+          transform: scale(1.05);
+      }
+  }
+  .plan-header {
+      position: relative;
+      padding: 30px 20px 25px;
+      .plan-title {
+          font-size: 16px;
+          margin-bottom: 10px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          font-weight: 400;
+      }
+      .plan-price {
+          font-size: 38px;
+          margin-bottom: 10px;
+          font-weight: 700;
+      }
+      .plan-duration {
+          font-size: 13px;
+          color: $gray-600;
+      }
+  }
+  .plan-stats {
+      position: relative;
+      padding: 30px 20px 15px;
+      li {
+          margin-bottom: 15px;
+          line-height: 24px;
+          i {
+              font-size: 18px;
+              width: 26px;
+              vertical-align: middle;
+          }
+      }
+  }
+}

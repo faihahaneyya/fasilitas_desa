@@ -1,0 +1,45 @@
+.intro-form {
+    background-color: $white;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0px 22px 45px -15px rgba($black, 0.5) !important;
+    h3 {
+        color: darken($gray-600, 10%);
+        font-size: 20px;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+        margin-top: 0px;
+    }
+}
+
+.intro-form {
+    input {
+        border: 1px solid $gray-200;
+        height: 38px;
+        box-shadow: none !important;
+        font-size: 14px;
+    }
+    .form-group {
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.help-block {
+    small {
+        a {
+            color: darken($blue, 20%);
+            &:hover {
+                color: darken($blue, 30%);
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .intro-form {
+        margin-top: 50px;
+    }
+}

@@ -1,0 +1,199 @@
+//
+// 4. Helper
+//
+@each $color,
+$value in $theme-colors {
+    .text-#{$color} {
+        color: #{$value} !important;
+    }
+    .bg-#{$color} {
+        background-color: #{$value} !important;
+    }
+}
+
+.text-white-70 {
+    color: rgba($white, 0.7) !important;
+}
+
+::selection {
+    background: rgba($warning, 0.5);
+    color: $gray-700;
+}
+
+::-moz-selection {
+    background: rgba($warning, 0.5);
+    color: $gray-700;
+}
+
+.section {
+    padding-top: 100px;
+    padding-bottom: 80px;
+}
+
+.sub-title {
+    margin-bottom: 40px;
+    font-size: 15px;
+}
+
+.title {
+    font-size: 22px;
+    margin-top: 0;
+}
+
+.font-weight-medium {
+    font-weight: 500;
+}
+
+.line-height-1_6 {
+    line-height: 1.6;
+}
+
+.line-height-1_4 {
+    line-height: 1.4;
+}
+
+.font-size-12 {
+    font-size: 12px;
+}
+
+// font-size
+.h1,
+h1 {
+    font-size: 36px;
+}
+
+.h2,
+h2 {
+    font-size: 30px;
+}
+
+.h4,
+h4 {
+    font-size: 18px;
+}
+
+.h5,
+h5 {
+    font-size: 14px;
+}
+
+.font-size-13 {
+    font-size: 13px;
+}
+
+.font-size-14 {
+    font-size: 14px;
+}
+
+.font-size-15 {
+    font-size: 15px;
+}
+
+.font-size-16 {
+    font-size: 16px;
+}
+
+.font-size-17 {
+    font-size: 17px;
+}
+
+.font-size-18 {
+    font-size: 18px;
+}
+
+.font-size-19 {
+    font-size: 19px;
+}
+
+.font-size-20 {
+    font-size: 20px;
+}
+
+/* Back to top */
+
+.back-to-top-btn {
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+    display: none;
+    text-align: center;
+    border-radius: 3px;
+    background-color: $gray-700;
+    i {
+        color: $white;
+        font-size: 22px;
+        display: block;
+        line-height: 30px;
+    }
+    &:hover {
+        background-color: $primary;
+    }
+}
+
+.bg-light {
+    background-color: $gray-100 !important;
+    border-top: 1px solid darken($gray-100, 3%);
+    border-bottom: 1px solid darken($gray-100, 3%);
+}
+
+/* Background Images */
+
+.bg-img-1 {
+    background: url("../images/bg4.jpg") no-repeat;
+    background-size: cover;
+}
+
+.bg-img-2 {
+    background: url("../images/bg1.jpg") center no-repeat;
+    background-size: cover;
+}
+
+// Other pages
+.header-title-box {
+    padding-top: 190px;
+    padding-bottom: 155px;
+    h3 {
+        font-size: 30px;
+        font-weight: 300;
+    }
+}
+
+.title-about h3 {
+    margin-bottom: 30px !important;
+}
+
+.wide-img-showcase-row {
+    position: relative;
+}
+
+.no-padding {
+    &.img {
+        background: url("../images/showcase-1.jpg") scroll center no-repeat;
+        background-size: cover;
+        position: absolute;
+        height: 100%;
+    }
+    &.img-2 {
+        background: url("../images/showcase-2.jpg") scroll center no-repeat;
+        background-size: cover;
+        position: absolute;
+        height: 100%;
+    }
+}
+
+.about-detail-img-box {
+    padding: 15% 0;
+}
+
+@media (max-width: 768px) {
+    .no-padding {
+        &.img,
+        &.img-2 {
+            position: relative;
+            height: 300px;
+        }
+    }
+    .video-wrapper {
+        padding-top: 50px;
+    }
+}
