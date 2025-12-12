@@ -3,7 +3,7 @@
 @section('title', 'Pembayaran Fasilitas')
 
 @section('content')
-<div class="container-fluid vh-100">
+<div class="container-fluid">
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4 mt-5">
         <div>

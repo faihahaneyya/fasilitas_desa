@@ -3,7 +3,7 @@
 @section('title', 'Data Warga')
 
 @section('content')
-    <div class="container-fluid vh-100">
+    <div class="container-fluid">
         <!-- Header dengan Tombol Tambah -->
         <div class="d-flex justify-content-between align-items-center mb-4 mt-5">
             <div>
