@@ -21,7 +21,7 @@
                         <li><a class="dropdown-item" href="{{route('warga.index')}}">Warga</a></li>
                         <li><a class="dropdown-item" href="{{route(name: 'fasilitas.index')}}">Fasilitas Umum</a></li>
                         <li><a class="dropdown-item" href="{{route(name: 'peminjaman.index')}}">Peminjaman Fasilitas</a></li>
-                        <li><a class="dropdown-item" href="jobs.html">Jobs</a></li>
+                        <li><a class="dropdown-item" href="{{route(name: 'pembayaran-fasilitas.index')}}">Pembayaran Fasilitas</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">

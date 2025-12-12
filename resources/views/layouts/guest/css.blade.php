@@ -21,7 +21,8 @@
         position: fixed;
         width: 60px;
         height: 60px;
-        bottom: 90px; /* Jarak dari back-to-top button */
+        bottom: 90px;
+        /* Jarak dari back-to-top button */
         right: 30px;
         background-color: #25d366;
         color: #FFF;
@@ -29,14 +30,17 @@
         text-align: center;
         font-size: 30px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        z-index: 1030; /* Lebih tinggi dari back-to-top (biasanya 1020) */
-        display: none; /* Awalnya disembunyikan */
+        z-index: 1030;
+        /* Lebih tinggi dari back-to-top (biasanya 1020) */
+        display: none;
+        /* Awalnya disembunyikan */
         align-items: center;
         justify-content: center;
         transition: all 0.3s ease;
         text-decoration: none;
         border: 2px solid white;
-        opacity: 0; /* Untuk animasi */
+        opacity: 0;
+        /* Untuk animasi */
     }
 
     .whatsapp-float:hover {
@@ -80,7 +84,7 @@
         border-color: transparent transparent transparent #333;
     }
 
-    .whatsapp-float:hover + .whatsapp-tooltip {
+    .whatsapp-float:hover+.whatsapp-tooltip {
         opacity: 1;
         transform: translateX(0);
     }
@@ -90,6 +94,7 @@
         .whatsapp-float {
             bottom: 100px;
         }
+
         .whatsapp-tooltip {
             bottom: 100px;
         }
@@ -101,6 +106,7 @@
             bottom: 85px;
             right: 25px;
         }
+
         .whatsapp-tooltip {
             bottom: 85px;
             right: 95px;
@@ -167,7 +173,7 @@
 
     .hover-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
     }
 
     /* Avatar untuk peminjam */
@@ -229,8 +235,8 @@
     .dropdown-menu {
         min-width: 180px;
         border-radius: 8px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        border: 1px solid rgba(0,0,0,0.05);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(0, 0, 0, 0.05);
     }
 
     .dropdown-item {
@@ -346,5 +352,29 @@
         .col-md-6.col-xl-4 {
             margin-bottom: 1rem;
         }
+    }
+</style>
+
+<style>
+    /* Pastikan dropdown visible saat active */
+    .dropdown-menu.show {
+        display: block !important;
+    }
+
+    /* Style untuk dropdown */
+    .navbar-nav .dropdown-menu {
+        margin-top: 0;
+        border: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+    .dropdown-item {
+        padding: 8px 20px;
+        font-size: 0.95rem;
+    }
+
+    .dropdown-item:hover {
+        background-color: #f8f9fa;
     }
 </style>
