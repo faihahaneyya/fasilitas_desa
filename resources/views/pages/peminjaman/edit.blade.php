@@ -137,8 +137,7 @@
                                         class="text-danger">*</span></label>
                                 <input type="number" class="form-control @error('total_biaya') is-invalid @enderror"
                                     id="total_biaya" name="total_biaya"
-                                    value="{{ old('total_biaya', $peminjaman->total_biaya) }}" min="0"
-                                    step="1000" required>
+                                    value="{{ old('total_biaya', $peminjaman->total_biaya) }}"  required>
                                 @error('total_biaya')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
