@@ -14,7 +14,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form action="{{ route('peminjaman.store') }}" method="POST" id="peminjamanForm">
+                        <form action="{{ route('peminjaman.store') }}" method="POST" id="peminjamanForm" enctype="multipart/form-data">
                             @csrf
 
                             <!-- Pilih Fasilitas -->
@@ -123,12 +123,54 @@
                             </div>
 
                             <!-- Catatan -->
-                            <div class="mb-4">
+                            <div class="mb-3">
                                 <label for="catatan" class="form-label">Catatan (opsional)</label>
-                                <textarea class="form-control @error('catatan') is-invalid @enderror" id="catatan" name="catatan" rows="3">{{ old('catatan') }}</textarea>
+                                <textarea class="form-control @error('catatan') is-invalid @enderror" id="catatan" name="catatan" rows="2">{{ old('catatan') }}</textarea>
                                 @error('catatan')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                            </div>
+
+                            <!-- ======================== -->
+                            <!-- UPLOAD DOKUMEN PENDUKUNG KE TABLE MEDIA -->
+                            <!-- ======================== -->
+                            <div class="mb-4">
+                                <label for="dokumen_files" class="form-label">
+                                    Dokumen Pendukung <span class="text-muted">(Multiple Upload)</span>
+                                </label>
+                                <input type="file"
+                                       class="form-control @error('dokumen_files.*') is-invalid @enderror"
+                                       id="dokumen_files"
+                                       name="dokumen_files[]"
+                                       multiple
+                                       accept="image/*,.pdf,.doc,.docx,.xls,.xlsx">
+
+                                @error('dokumen_files')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+
+                                @error('dokumen_files.*')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+
+                                <div class="form-text">
+                                    Upload dokumen pendukung seperti surat permohonan, KTP, atau bukti lainnya.
+                                    Format yang didukung: JPG, PNG, PDF, DOC, DOCX, XLS, XLSX.
+                                    Maksimal ukuran per file: 5MB.
+                                    File akan disimpan di tabel <strong>media</strong>.
+                                </div>
+
+                                <!-- Input untuk deskripsi per file (optional) -->
+                                <div id="dokumen-deskripsi-container" class="mt-3 d-none">
+                                    <p class="text-muted small mb-2">Keterangan Dokumen:</p>
+                                    <!-- Input deskripsi akan ditambahkan secara dinamis -->
+                                </div>
+
+                                <!-- Preview Area untuk gambar -->
+                                <div id="dokumen-preview-container" class="mt-3 row g-2 d-none">
+                                    <p class="text-muted small mb-2">Preview Dokumen:</p>
+                                    <!-- Preview akan ditampilkan di sini -->
+                                </div>
                             </div>
 
                             <!-- Action Buttons -->
@@ -183,6 +225,105 @@
                 durasiDisplay.value = '0 hari';
             }
         }
+
+        // Preview dokumen sebelum upload
+        document.getElementById('dokumen_files').addEventListener('change', function(e) {
+            const previewContainer = document.getElementById('dokumen-preview-container');
+            const deskripsiContainer = document.getElementById('dokumen-deskripsi-container');
+            previewContainer.innerHTML = '';
+            deskripsiContainer.innerHTML = '';
+            previewContainer.classList.add('d-none');
+            deskripsiContainer.classList.add('d-none');
+
+            const files = e.target.files;
+
+            if (files.length > 0) {
+                previewContainer.classList.remove('d-none');
+                previewContainer.innerHTML = '<p class="text-muted small mb-2">Preview (' + files.length + ' dokumen):</p>';
+
+                deskripsiContainer.classList.remove('d-none');
+                deskripsiContainer.innerHTML = '<p class="text-muted small mb-2">Keterangan Dokumen (opsional):</p>';
+
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+
+                    // Input deskripsi untuk setiap file
+                    const deskripsiDiv = document.createElement('div');
+                    deskripsiDiv.className = 'mb-2';
+
+                    const deskripsiLabel = document.createElement('label');
+                    deskripsiLabel.className = 'form-label small';
+                    deskripsiLabel.htmlFor = 'dokumen_deskripsi_' + i;
+                    deskripsiLabel.textContent = 'Dokumen ' + (i + 1) + ' (' + file.name + ')';
+
+                    const deskripsiInput = document.createElement('input');
+                    deskripsiInput.type = 'text';
+                    deskripsiInput.className = 'form-control form-control-sm';
+                    deskripsiInput.id = 'dokumen_deskripsi_' + i;
+                    deskripsiInput.name = 'dokumen_deskripsi[]';
+                    deskripsiInput.placeholder = 'Contoh: Surat Permohonan, KTP, dll';
+                    deskripsiInput.maxLength = 255;
+
+                    deskripsiDiv.appendChild(deskripsiLabel);
+                    deskripsiDiv.appendChild(deskripsiInput);
+                    deskripsiContainer.appendChild(deskripsiDiv);
+
+                    // Preview untuk file gambar
+                    if (file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const col = document.createElement('div');
+                            col.className = 'col-4 col-md-3 mb-3';
+
+                            const previewDiv = document.createElement('div');
+                            previewDiv.className = 'position-relative';
+
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.className = 'img-thumbnail w-100 h-100 object-fit-cover';
+                            img.style.height = '100px';
+                            img.alt = 'Preview ' + (i + 1);
+
+                            const badge = document.createElement('span');
+                            badge.className = 'position-absolute top-0 end-0 badge bg-dark';
+                            badge.style.transform = 'translate(25%, -25%)';
+                            badge.textContent = (i + 1);
+
+                            previewDiv.appendChild(img);
+                            previewDiv.appendChild(badge);
+                            col.appendChild(previewDiv);
+                            previewContainer.appendChild(col);
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        // Untuk non-gambar, tampilkan icon
+                        const col = document.createElement('div');
+                        col.className = 'col-4 col-md-3 mb-3';
+
+                        const previewDiv = document.createElement('div');
+                        previewDiv.className = 'position-relative border rounded p-2 text-center';
+
+                        const icon = document.createElement('i');
+                        icon.className = 'bi bi-file-earmark-text fs-1 text-muted';
+
+                        const fileName = document.createElement('div');
+                        fileName.className = 'small text-truncate mt-1';
+                        fileName.textContent = file.name;
+
+                        const badge = document.createElement('span');
+                        badge.className = 'position-absolute top-0 end-0 badge bg-secondary';
+                        badge.style.transform = 'translate(25%, -25%)';
+                        badge.textContent = (i + 1);
+
+                        previewDiv.appendChild(icon);
+                        previewDiv.appendChild(fileName);
+                        previewDiv.appendChild(badge);
+                        col.appendChild(previewDiv);
+                        previewContainer.appendChild(col);
+                    }
+                }
+            }
+        });
 
         // Inisialisasi saat halaman dimuat
         document.addEventListener('DOMContentLoaded', function() {
@@ -240,6 +381,18 @@
                         tanggalSelesai.focus();
                     }
                 }
+
+                // Validasi file size (maksimal 5MB per file)
+                const dokumenFiles = document.getElementById('dokumen_files').files;
+                const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+
+                for (let i = 0; i < dokumenFiles.length; i++) {
+                    if (dokumenFiles[i].size > maxSize) {
+                        e.preventDefault();
+                        alert(`File "${dokumenFiles[i].name}" melebihi ukuran maksimal 5MB!`);
+                        return;
+                    }
+                }
             });
         });
     </script>
@@ -256,6 +409,15 @@
 
         .input-group-text {
             font-weight: 500;
+        }
+
+        #dokumen-preview-container img {
+            object-fit: cover;
+            border: 1px solid #dee2e6;
+        }
+
+        #dokumen-preview-container .bi-file-earmark-text {
+            font-size: 3rem;
         }
     </style>
 @endsection

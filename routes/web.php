@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FasilitasUmumController;
-use App\Http\Controllers\PeminjamanFasilitasController;
 use App\Http\Controllers\PembayaranFasilitasController;
+use App\Http\Controllers\PeminjamanFasilitasController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WargaController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,10 +22,45 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::resource('warga', WargaController::class);
 Route::resource('fasilitas', FasilitasUmumController::class);
 
+// Resource route untuk peminjaman
 Route::resource('peminjaman', PeminjamanFasilitasController::class);
-Route::get('/peminjaman/search', [PeminjamanFasilitasController::class, 'search'])->name('peminjaman.search');
+
+// Custom routes untuk peminjaman
 Route::post('/peminjaman/{peminjaman}/status', [PeminjamanFasilitasController::class, 'updateStatus'])->name('peminjaman.status');
 Route::get('/peminjaman/calendar/{fasilitas_id?}', [PeminjamanFasilitasController::class, 'calendar'])->name('peminjaman.calendar');
-Route::resource('pembayaran-fasilitas', PembayaranFasilitasController::class);
-Route::get('pembayaran-fasilitas/dashboard', [PembayaranFasilitasController::class, 'dashboard'])
-    ->name('pembayaran-fasilitas.dashboard');
+Route::get('/peminjaman/search', [PeminjamanFasilitasController::class, 'search'])->name('peminjaman.search');
+
+
+
+// Atau route manual
+Route::get('/peminjaman/{id}', [PeminjamanFasilitasController::class, 'show'])
+    ->name('peminjaman.show');
+
+
+Route::get(
+    'pembayaran-fasilitas/dashboard',
+    [PembayaranFasilitasController::class, 'dashboard']
+)->name('pembayaran-fasilitas.dashboard');
+
+Route::resource(
+    'pembayaran-fasilitas',
+    PembayaranFasilitasController::class
+);
+
+// Route about
+Route::get('/about', [AboutController::class, 'index'])->name('about');
+
+Route::get('/about', [PageController::class, 'about'])->name('about');
+
+// routes/web.php
+Route::view('/about', 'pages.about')->name('about');
+
+Route::view('/developer', 'pages.developer-profile')->name('developer.show');
+
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+Route::patch('/users/{user}', [UserController::class, 'update'])->name('users.update');
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+Route::get('/users/search', [UserController::class, 'search'])->name('users.search');

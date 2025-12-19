@@ -1,5 +1,4 @@
 <?php
-// app/Models/PembayaranFasilitas.php
 
 namespace App\Models;
 
@@ -11,25 +10,33 @@ class PembayaranFasilitas extends Model
     use HasFactory;
 
     protected $table = 'pembayaran_fasilitas';
-    protected $primaryKey = 'bayar_id';
-    public $timestamps = true;
+    protected $primaryKey = 'pembayaran_id';
 
     protected $fillable = [
         'pinjam_id',
         'tanggal',
         'jumlah',
         'metode',
-        'keterangan'
+        'keterangan',
     ];
 
+    // TAMBAHKAN CASTING untuk tanggal
     protected $casts = [
         'tanggal' => 'date',
         'jumlah' => 'decimal:2',
     ];
 
-    // Relasi ke peminjaman_fasilitas
+    // Relasi ke peminjaman
     public function peminjaman()
     {
         return $this->belongsTo(PeminjamanFasilitas::class, 'pinjam_id', 'pinjam_id');
+    }
+
+    // Relasi ke tabel media untuk bukti pembayaran
+    public function buktiPembayaran()
+    {
+        return $this->hasMany(Media::class, 'ref_id', 'pembayaran_id')
+                    ->where('ref_table', 'pembayaran_fasilitas')
+                    ->orderBy('sort_order', 'asc');
     }
 }

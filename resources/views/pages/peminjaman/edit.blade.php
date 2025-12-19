@@ -15,7 +15,7 @@
 
                     <div class="card-body">
                         <form action="{{ route('peminjaman.update', $peminjaman->pinjam_id) }}" method="POST"
-                            id="peminjamanForm">
+                            id="peminjamanForm" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -137,19 +137,123 @@
                                         class="text-danger">*</span></label>
                                 <input type="number" class="form-control @error('total_biaya') is-invalid @enderror"
                                     id="total_biaya" name="total_biaya"
-                                    value="{{ old('total_biaya', $peminjaman->total_biaya) }}"  required>
+                                    value="{{ old('total_biaya', $peminjaman->total_biaya) }}" required>
                                 @error('total_biaya')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <!-- Catatan -->
-                            <div class="mb-4">
+                            <div class="mb-3">
                                 <label for="catatan" class="form-label">Catatan (opsional)</label>
-                                <textarea class="form-control @error('catatan') is-invalid @enderror" id="catatan" name="catatan" rows="3">{{ old('catatan', $peminjaman->catatan) }}</textarea>
+                                <textarea class="form-control @error('catatan') is-invalid @enderror" id="catatan" name="catatan" rows="2">{{ old('catatan', $peminjaman->catatan) }}</textarea>
                                 @error('catatan')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                            </div>
+
+                            <!-- ======================== -->
+                            <!-- DOKUMEN PENDUKUNG YANG SUDAH DIUPLOAD -->
+                            <!-- ======================== -->
+                            @if($peminjaman->media && $peminjaman->media->count() > 0)
+                                <div class="mb-4">
+                                    <label class="form-label">Dokumen Pendukung Terupload</label>
+                                    <div class="row g-2">
+                                        @foreach($peminjaman->media as $media)
+                                            <div class="col-md-6 col-lg-4">
+                                                <div class="card border">
+                                                    <div class="card-body p-2">
+                                                        <div class="d-flex align-items-center">
+                                                            @if($media->is_image)
+                                                                <img src="{{ $media->getUrl() }}"
+                                                                     alt="Preview"
+                                                                     class="img-thumbnail me-2"
+                                                                     style="width: 50px; height: 50px; object-fit: cover;">
+                                                            @else
+                                                                <div class="bg-light rounded p-2 me-2">
+                                                                    <i class="bi bi-file-earmark-text text-primary fs-4"></i>
+                                                                </div>
+                                                            @endif
+                                                            <div>
+                                                                <small class="d-block text-truncate" style="max-width: 150px;">
+                                                                    {{ $media->file_name }}
+                                                                </small>
+                                                                <small class="text-muted">
+                                                                    {{ number_format($media->size / 1024, 2) }} KB
+                                                                </small>
+                                                            </div>
+                                                            <div class="ms-auto">
+                                                                <a href="{{ $media->getUrl() }}"
+                                                                   target="_blank"
+                                                                   class="btn btn-sm btn-outline-primary"
+                                                                   title="Lihat">
+                                                                    <i class="bi bi-eye"></i>
+                                                                </a>
+                                                                <button type="button"
+                                                                        class="btn btn-sm btn-outline-danger delete-dokumen"
+                                                                        data-id="{{ $media->id }}"
+                                                                        title="Hapus">
+                                                                    <i class="bi bi-trash"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        @if($media->getCustomProperty('deskripsi'))
+                                                            <div class="mt-2">
+                                                                <small class="text-muted">
+                                                                    {{ $media->getCustomProperty('deskripsi') }}
+                                                                </small>
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <small class="text-muted d-block mt-2">
+                                        Total {{ $peminjaman->media->count() }} dokumen terupload.
+                                    </small>
+                                </div>
+                            @endif
+
+                            <!-- ======================== -->
+                            <!-- UPLOAD DOKUMEN PENDUKUNG TAMBAHAN -->
+                            <!-- ======================== -->
+                            <div class="mb-4">
+                                <label for="dokumen_files" class="form-label">
+                                    Tambah Dokumen Pendukung <span class="text-muted">(Multiple Upload)</span>
+                                </label>
+                                <input type="file"
+                                       class="form-control @error('dokumen_files.*') is-invalid @enderror"
+                                       id="dokumen_files"
+                                       name="dokumen_files[]"
+                                       multiple
+                                       accept="image/*,.pdf,.doc,.docx,.xls,.xlsx">
+
+                                @error('dokumen_files')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+
+                                @error('dokumen_files.*')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+
+                                <div class="form-text">
+                                    Upload dokumen pendukung tambahan seperti surat permohonan, KTP, atau bukti lainnya.
+                                    Format yang didukung: JPG, PNG, PDF, DOC, DOCX, XLS, XLSX.
+                                    Maksimal ukuran per file: 5MB.
+                                </div>
+
+                                <!-- Input untuk deskripsi per file (optional) -->
+                                <div id="dokumen-deskripsi-container" class="mt-3 d-none">
+                                    <p class="text-muted small mb-2">Keterangan Dokumen:</p>
+                                    <!-- Input deskripsi akan ditambahkan secara dinamis -->
+                                </div>
+
+                                <!-- Preview Area untuk gambar -->
+                                <div id="dokumen-preview-container" class="mt-3 row g-2 d-none">
+                                    <p class="text-muted small mb-2">Preview Dokumen:</p>
+                                    <!-- Preview akan ditampilkan di sini -->
+                                </div>
                             </div>
 
                             <!-- Action Buttons -->
@@ -211,6 +315,105 @@
             }
         }
 
+        // Preview dokumen sebelum upload
+        document.getElementById('dokumen_files').addEventListener('change', function(e) {
+            const previewContainer = document.getElementById('dokumen-preview-container');
+            const deskripsiContainer = document.getElementById('dokumen-deskripsi-container');
+            previewContainer.innerHTML = '';
+            deskripsiContainer.innerHTML = '';
+            previewContainer.classList.add('d-none');
+            deskripsiContainer.classList.add('d-none');
+
+            const files = e.target.files;
+
+            if (files.length > 0) {
+                previewContainer.classList.remove('d-none');
+                previewContainer.innerHTML = '<p class="text-muted small mb-2">Preview (' + files.length + ' dokumen):</p>';
+
+                deskripsiContainer.classList.remove('d-none');
+                deskripsiContainer.innerHTML = '<p class="text-muted small mb-2">Keterangan Dokumen (opsional):</p>';
+
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+
+                    // Input deskripsi untuk setiap file
+                    const deskripsiDiv = document.createElement('div');
+                    deskripsiDiv.className = 'mb-2';
+
+                    const deskripsiLabel = document.createElement('label');
+                    deskripsiLabel.className = 'form-label small';
+                    deskripsiLabel.htmlFor = 'dokumen_deskripsi_' + i;
+                    deskripsiLabel.textContent = 'Dokumen ' + (i + 1) + ' (' + file.name + ')';
+
+                    const deskripsiInput = document.createElement('input');
+                    deskripsiInput.type = 'text';
+                    deskripsiInput.className = 'form-control form-control-sm';
+                    deskripsiInput.id = 'dokumen_deskripsi_' + i;
+                    deskripsiInput.name = 'dokumen_deskripsi[]';
+                    deskripsiInput.placeholder = 'Contoh: Surat Permohonan, KTP, dll';
+                    deskripsiInput.maxLength = 255;
+
+                    deskripsiDiv.appendChild(deskripsiLabel);
+                    deskripsiDiv.appendChild(deskripsiInput);
+                    deskripsiContainer.appendChild(deskripsiDiv);
+
+                    // Preview untuk file gambar
+                    if (file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const col = document.createElement('div');
+                            col.className = 'col-4 col-md-3 mb-3';
+
+                            const previewDiv = document.createElement('div');
+                            previewDiv.className = 'position-relative';
+
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.className = 'img-thumbnail w-100 h-100 object-fit-cover';
+                            img.style.height = '100px';
+                            img.alt = 'Preview ' + (i + 1);
+
+                            const badge = document.createElement('span');
+                            badge.className = 'position-absolute top-0 end-0 badge bg-dark';
+                            badge.style.transform = 'translate(25%, -25%)';
+                            badge.textContent = (i + 1);
+
+                            previewDiv.appendChild(img);
+                            previewDiv.appendChild(badge);
+                            col.appendChild(previewDiv);
+                            previewContainer.appendChild(col);
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        // Untuk non-gambar, tampilkan icon
+                        const col = document.createElement('div');
+                        col.className = 'col-4 col-md-3 mb-3';
+
+                        const previewDiv = document.createElement('div');
+                        previewDiv.className = 'position-relative border rounded p-2 text-center';
+
+                        const icon = document.createElement('i');
+                        icon.className = 'bi bi-file-earmark-text fs-1 text-muted';
+
+                        const fileName = document.createElement('div');
+                        fileName.className = 'small text-truncate mt-1';
+                            fileName.textContent = file.name;
+
+                        const badge = document.createElement('span');
+                        badge.className = 'position-absolute top-0 end-0 badge bg-secondary';
+                        badge.style.transform = 'translate(25%, -25%)';
+                        badge.textContent = (i + 1);
+
+                        previewDiv.appendChild(icon);
+                        previewDiv.appendChild(fileName);
+                        previewDiv.appendChild(badge);
+                        col.appendChild(previewDiv);
+                        previewContainer.appendChild(col);
+                    }
+                }
+            }
+        });
+
         // Inisialisasi saat halaman dimuat
         document.addEventListener('DOMContentLoaded', function() {
             // Hitung durasi awal
@@ -251,6 +454,18 @@
                         tanggalSelesai.focus();
                     }
                 }
+
+                // Validasi file size (maksimal 5MB per file)
+                const dokumenFiles = document.getElementById('dokumen_files').files;
+                const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+
+                for (let i = 0; i < dokumenFiles.length; i++) {
+                    if (dokumenFiles[i].size > maxSize) {
+                        e.preventDefault();
+                        alert(`File "${dokumenFiles[i].name}" melebihi ukuran maksimal 5MB!`);
+                        return;
+                    }
+                }
             });
 
             // Tambahkan event listener untuk validasi real-time
@@ -268,6 +483,39 @@
             });
 
             document.getElementById('tanggal_selesai').addEventListener('change', hitungDurasi);
+
+            // Handler untuk menghapus dokumen yang sudah diupload
+            document.querySelectorAll('.delete-dokumen').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const mediaId = this.getAttribute('data-id');
+
+                    if (confirm('Apakah Anda yakin ingin menghapus dokumen ini?')) {
+                        fetch(`/peminjaman/{{ $peminjaman->pinjam_id }}/media/${mediaId}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Hapus elemen dari DOM
+                                this.closest('.col-md-6').remove();
+                                alert('Dokumen berhasil dihapus');
+                            } else {
+                                alert('Gagal menghapus dokumen');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Terjadi kesalahan saat menghapus dokumen');
+                        });
+                    }
+                });
+            });
         });
     </script>
 
@@ -287,6 +535,21 @@
 
         .btn {
             min-width: 120px;
+        }
+
+        #dokumen-preview-container img {
+            object-fit: cover;
+            border: 1px solid #dee2e6;
+        }
+
+        #dokumen-preview-container .bi-file-earmark-text {
+            font-size: 3rem;
+        }
+
+        .delete-dokumen:hover {
+            color: #fff !important;
+            background-color: #dc3545 !important;
+            border-color: #dc3545 !important;
         }
     </style>
 @endsection

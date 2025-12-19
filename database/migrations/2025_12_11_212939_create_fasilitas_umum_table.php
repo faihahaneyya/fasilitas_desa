@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('rw', 3)->nullable();
             $table->integer('kapasitas')->nullable();
             $table->text('deskripsi')->nullable();
+            $table->json('fotos')->nullable(); 
             $table->timestamps();
             $table->softDeletes();
         });

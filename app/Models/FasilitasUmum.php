@@ -20,11 +20,13 @@ class FasilitasUmum extends Model
         'rw',
         'kapasitas',
         'deskripsi',
+        // HAPUS 'fotos' dari sini karena sekarang pakai tabel media
     ];
 
     protected $casts = [
         'fasilitas_id' => 'integer',
         'kapasitas'    => 'integer',
+        // 'fotos' => 'array', // HAPUS casting ini juga
     ];
 
     public function getLokasiAttribute()
@@ -67,5 +69,18 @@ class FasilitasUmum extends Model
     public function peminjaman()
     {
         return $this->hasMany(PeminjamanFasilitas::class, 'fasilitas_id');
+    }
+
+    // Relasi ke tabel media (SUDAH ADA, TINGGAL DIKOMENTARI)
+    public function media()
+    {
+        return $this->hasMany(Media::class, 'ref_id', 'fasilitas_id')
+            ->where('ref_table', 'fasilitas_umum')
+            ->orderBy('sort_order', 'asc');
+    }
+
+    public function fotos()
+    {
+        return $this->media()->where('mime_type', 'like', 'image/%');
     }
 }

@@ -72,6 +72,36 @@
                         </div>
                     </div>
 
+                    <!-- ======================== -->
+                    <!-- GALERI FOTO FASILITAS -->
+                    <!-- ======================== -->
+                    @if($fasilita->media->count() > 0)
+                    <div class="mt-4">
+                        <h6 class="fw-bold mb-3">Galeri Foto</h6>
+                        <div class="row g-3">
+                            @foreach($fasilita->media as $media)
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <div class="card border h-100">
+                                    <a href="{{ $media->file_url }}"
+                                       data-fancybox="gallery"
+                                       data-caption="{{ $media->caption ?? 'Foto Fasilitas' }}">
+                                        <img src="{{ $media->file_url }}"
+                                             alt="{{ $media->caption ?? 'Foto Fasilitas' }}"
+                                             class="card-img-top"
+                                             style="height: 150px; object-fit: cover;">
+                                    </a>
+                                    @if($media->caption)
+                                    <div class="card-body p-2">
+                                        <p class="card-text small mb-0">{{ $media->caption }}</p>
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
+
                     <!-- Deskripsi -->
                     @if($fasilita->deskripsi)
                     <div class="mt-4">
@@ -89,3 +119,40 @@
     </div>
 </div>
 @endsection
+
+@push('styles')
+<!-- Fancybox untuk lightbox gallery -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+<style>
+    [data-fancybox] {
+        cursor: zoom-in;
+    }
+    .card-img-top {
+        transition: transform 0.3s;
+    }
+    .card-img-top:hover {
+        transform: scale(1.05);
+    }
+</style>
+@endpush
+
+@push('scripts')
+<!-- Fancybox untuk lightbox gallery -->
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+<script>
+    Fancybox.bind("[data-fancybox]", {
+        // Options
+        infinite: true,
+        Thumbs: {
+            autoStart: true,
+        },
+        Toolbar: {
+            display: {
+                left: [],
+                middle: [],
+                right: ["close"],
+            },
+        },
+    });
+</script>
+@endpush

@@ -41,6 +41,8 @@
     <div class="whatsapp-tooltip">{{ $tooltipText }}</div>
 
     @include('layouts.guest.js')
+
+    
 </body>
 
 </html>
