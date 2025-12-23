@@ -319,7 +319,7 @@
                     <a href="{{ url('/developer') }}"
                        class="btn-developer btn-lg">
                         <i class="fas fa-user-tie me-2"></i>
-                        Lihat Profil Lengkap Pengembang
+                        Lihat Profil Pengembang
                     </a>
 
                     <a href="mailto:cecefaiha@gmail.com"
