@@ -14,4 +14,9 @@ class SyaratFasilitas extends Model
         'nama_syarat',
         'deskripsi',
     ];
+
+    public function fasilitas()
+    {
+        return $this->belongsTo(FasilitasUmum::class, 'fasilitas_id');
+    }
 }

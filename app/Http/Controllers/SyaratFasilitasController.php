@@ -35,8 +35,20 @@ class SyaratFasilitasController extends Controller
 
     public function edit($id)
     {
+        // 1. Ambil data syarat yang akan diedit
         $syarat = SyaratFasilitas::findOrFail($id);
-        return view('pages.syarat.edit', compact('syarat'));
+
+        // 2. Ambil semua data fasilitas untuk pilihan di dropdown
+        $fasilitas = FasilitasUmum::all();
+
+        // 3. Kirim kedua variabel ke view
+        return view('pages.syarat.edit', compact('syarat', 'fasilitas'));
+    }
+    public function show($id)
+    {
+        // Menggunakan eager loading 'fasilitas' agar data induk tampil
+        $syarat = SyaratFasilitas::with('fasilitas')->findOrFail($id);
+        return view('pages.syarat.show', compact('syarat'));
     }
 
     public function update(Request $request, $id)

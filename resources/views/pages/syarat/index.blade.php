@@ -42,6 +42,12 @@
 
                         <div class="card-footer bg-white border-top-0 pt-0">
                             <div class="d-flex justify-content-end">
+                                <!-- Show Button -->
+                                <a href="{{ route('syarat.show', $item->syarat_id) }}" class="btn btn-sm btn-outline-info me-2"
+                                    title="Detail">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+
                                 <a href="{{ route('syarat.edit', $item->syarat_id) }}"
                                     class="btn btn-sm btn-outline-warning me-2" title="Edit">
                                     <i class="bi bi-pencil"></i>
