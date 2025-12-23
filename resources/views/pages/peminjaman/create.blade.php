@@ -135,41 +135,33 @@
                             <!-- UPLOAD DOKUMEN PENDUKUNG KE TABLE MEDIA -->
                             <!-- ======================== -->
                             <div class="mb-4">
-                                <label for="dokumen_files" class="form-label">
-                                    Dokumen Pendukung <span class="text-muted">(Multiple Upload)</span>
+                                <label for="dokumen_files" class="form-label fw-bold">
+                                    Dokumen Pendukung <span class="text-muted small">(Multiple Upload)</span>
                                 </label>
                                 <input type="file"
-                                       class="form-control @error('dokumen_files.*') is-invalid @enderror"
-                                       id="dokumen_files"
-                                       name="dokumen_files[]"
-                                       multiple
-                                       accept="image/*,.pdf,.doc,.docx,.xls,.xlsx">
-
-                                @error('dokumen_files')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                    class="form-control @error('dokumen_files.*') is-invalid @enderror"
+                                    id="dokumen_files"
+                                    name="dokumen_files[]"
+                                    multiple
+                                    accept="image/*,.pdf,.doc,.docx,.xls,.xlsx">
 
                                 @error('dokumen_files.*')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
 
                                 <div class="form-text">
-                                    Upload dokumen pendukung seperti surat permohonan, KTP, atau bukti lainnya.
-                                    Format yang didukung: JPG, PNG, PDF, DOC, DOCX, XLS, XLSX.
-                                    Maksimal ukuran per file: 5MB.
-                                    File akan disimpan di tabel <strong>media</strong>.
+                                    Format: JPG, PNG, PDF, DOCX, XLSX. Maks: 5MB/file.
                                 </div>
 
-                                <!-- Input untuk deskripsi per file (optional) -->
-                                <div id="dokumen-deskripsi-container" class="mt-3 d-none">
-                                    <p class="text-muted small mb-2">Keterangan Dokumen:</p>
-                                    <!-- Input deskripsi akan ditambahkan secara dinamis -->
-                                </div>
-
-                                <!-- Preview Area untuk gambar -->
                                 <div id="dokumen-preview-container" class="mt-3 row g-2 d-none">
-                                    <p class="text-muted small mb-2">Preview Dokumen:</p>
-                                    <!-- Preview akan ditampilkan di sini -->
+                                    <div class="col-12">
+                                        <p class="text-muted small mb-2 fw-bold">Preview Gambar:</p>
+                                    </div>
+                                    </div>
+
+                                <div id="dokumen-deskripsi-container" class="mt-3 d-none">
+                                    <p class="text-muted small mb-2 fw-bold">Keterangan Dokumen (Opsional):</p>
+                                    <div id="description-inputs"></div>
                                 </div>
                             </div>
 
@@ -226,104 +218,66 @@
             }
         }
 
-        // Preview dokumen sebelum upload
-        document.getElementById('dokumen_files').addEventListener('change', function(e) {
-            const previewContainer = document.getElementById('dokumen-preview-container');
-            const deskripsiContainer = document.getElementById('dokumen-deskripsi-container');
-            previewContainer.innerHTML = '';
-            deskripsiContainer.innerHTML = '';
-            previewContainer.classList.add('d-none');
-            deskripsiContainer.classList.add('d-none');
+        document.getElementById('dokumen_files').addEventListener('change', function(event) {
+    const files = event.target.files;
+    const previewContainer = document.getElementById('dokumen-preview-container');
+    const descContainer = document.getElementById('dokumen-deskripsi-container');
+    const descInputs = document.getElementById('description-inputs');
 
-            const files = e.target.files;
+    // Reset konten sebelumnya
+    previewContainer.innerHTML = '<div class="col-12"><p class="text-muted small mb-2 fw-bold">Preview Gambar:</p></div>';
+    descInputs.innerHTML = '';
+    
+    if (files.length > 0) {
+        previewContainer.classList.remove('d-none');
+        descContainer.classList.remove('d-none');
 
-            if (files.length > 0) {
-                previewContainer.classList.remove('d-none');
-                previewContainer.innerHTML = '<p class="text-muted small mb-2">Preview (' + files.length + ' dokumen):</p>';
+        Array.from(files).forEach((file, index) => {
+            // 1. Buat Input Deskripsi untuk setiap file
+            const inputGroup = document.createElement('div');
+            inputGroup.className = 'input-group mb-2';
+            inputGroup.innerHTML = `
+                <span class="input-group-text small">File ${index + 1}</span>
+                <input type="text" name="captions[]" class="form-control form-control-sm" 
+                       placeholder="Masukkan keterangan untuk ${file.name}">
+            `;
+            descInputs.appendChild(inputGroup);
 
-                deskripsiContainer.classList.remove('d-none');
-                deskripsiContainer.innerHTML = '<p class="text-muted small mb-2">Keterangan Dokumen (opsional):</p>';
-
-                for (let i = 0; i < files.length; i++) {
-                    const file = files[i];
-
-                    // Input deskripsi untuk setiap file
-                    const deskripsiDiv = document.createElement('div');
-                    deskripsiDiv.className = 'mb-2';
-
-                    const deskripsiLabel = document.createElement('label');
-                    deskripsiLabel.className = 'form-label small';
-                    deskripsiLabel.htmlFor = 'dokumen_deskripsi_' + i;
-                    deskripsiLabel.textContent = 'Dokumen ' + (i + 1) + ' (' + file.name + ')';
-
-                    const deskripsiInput = document.createElement('input');
-                    deskripsiInput.type = 'text';
-                    deskripsiInput.className = 'form-control form-control-sm';
-                    deskripsiInput.id = 'dokumen_deskripsi_' + i;
-                    deskripsiInput.name = 'dokumen_deskripsi[]';
-                    deskripsiInput.placeholder = 'Contoh: Surat Permohonan, KTP, dll';
-                    deskripsiInput.maxLength = 255;
-
-                    deskripsiDiv.appendChild(deskripsiLabel);
-                    deskripsiDiv.appendChild(deskripsiInput);
-                    deskripsiContainer.appendChild(deskripsiDiv);
-
-                    // Preview untuk file gambar
-                    if (file.type.startsWith('image/')) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            const col = document.createElement('div');
-                            col.className = 'col-4 col-md-3 mb-3';
-
-                            const previewDiv = document.createElement('div');
-                            previewDiv.className = 'position-relative';
-
-                            const img = document.createElement('img');
-                            img.src = e.target.result;
-                            img.className = 'img-thumbnail w-100 h-100 object-fit-cover';
-                            img.style.height = '100px';
-                            img.alt = 'Preview ' + (i + 1);
-
-                            const badge = document.createElement('span');
-                            badge.className = 'position-absolute top-0 end-0 badge bg-dark';
-                            badge.style.transform = 'translate(25%, -25%)';
-                            badge.textContent = (i + 1);
-
-                            previewDiv.appendChild(img);
-                            previewDiv.appendChild(badge);
-                            col.appendChild(previewDiv);
-                            previewContainer.appendChild(col);
-                        };
-                        reader.readAsDataURL(file);
-                    } else {
-                        // Untuk non-gambar, tampilkan icon
-                        const col = document.createElement('div');
-                        col.className = 'col-4 col-md-3 mb-3';
-
-                        const previewDiv = document.createElement('div');
-                        previewDiv.className = 'position-relative border rounded p-2 text-center';
-
-                        const icon = document.createElement('i');
-                        icon.className = 'bi bi-file-earmark-text fs-1 text-muted';
-
-                        const fileName = document.createElement('div');
-                        fileName.className = 'small text-truncate mt-1';
-                        fileName.textContent = file.name;
-
-                        const badge = document.createElement('span');
-                        badge.className = 'position-absolute top-0 end-0 badge bg-secondary';
-                        badge.style.transform = 'translate(25%, -25%)';
-                        badge.textContent = (i + 1);
-
-                        previewDiv.appendChild(icon);
-                        previewDiv.appendChild(fileName);
-                        previewDiv.appendChild(badge);
-                        col.appendChild(previewDiv);
-                        previewContainer.appendChild(col);
-                    }
+            // 2. Buat Preview jika file adalah gambar
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const col = document.createElement('div');
+                    col.className = 'col-4 col-md-2';
+                    col.innerHTML = `
+                        <div class="card h-100 shadow-sm">
+                            <img src="${e.target.result}" class="card-img-top" style="height: 80px; object-fit: cover;">
+                            <div class="card-footer p-1">
+                                <p class="text-truncate small mb-0" style="font-size: 10px;">${file.name}</p>
+                            </div>
+                        </div>
+                    `;
+                    previewContainer.appendChild(col);
                 }
+                reader.readAsDataURL(file);
+            } else {
+                // Jika bukan gambar (misal PDF), tampilkan ikon saja
+                const col = document.createElement('div');
+                col.className = 'col-4 col-md-2';
+                col.innerHTML = `
+                    <div class="card h-100 shadow-sm text-center p-2 bg-light">
+                        <i class="bi bi-file-earmark-text fs-2 text-secondary"></i>
+                        <p class="text-truncate small mb-0 mt-1" style="font-size: 10px;">${file.name}</p>
+                    </div>
+                `;
+                previewContainer.appendChild(col);
             }
         });
+    } else {
+        previewContainer.classList.add('d-none');
+        descContainer.classList.add('d-none');
+    }
+});
 
         // Inisialisasi saat halaman dimuat
         document.addEventListener('DOMContentLoaded', function() {

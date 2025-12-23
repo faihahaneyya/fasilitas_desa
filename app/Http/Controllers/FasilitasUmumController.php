@@ -46,70 +46,74 @@ class FasilitasUmumController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-   public function store(Request $request)
-{
-    // Validasi data fasilitas
-    $validated = $request->validate([
-        'name' => 'required|string|max:100',
-        'jenis' => 'required|string|max:50',
-        'alamat' => 'required|string',
-        'rt' => 'nullable|string|max:3',
-        'rw' => 'nullable|string|max:3',
-        'kapasitas' => 'nullable|integer|min:0',
-        'deskripsi' => 'nullable|string',
-    ]);
-
-    // Validasi file upload
-    if ($request->hasFile('media_files')) {
-        $request->validate([
-            'media_files.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'captions.*' => 'nullable|string|max:255',
+    public function store(Request $request)
+    {
+        // Validasi data fasilitas
+        $validated = $request->validate([
+            'name' => 'required|string|max:100',
+            'jenis' => 'required|string|max:50',
+            'alamat' => 'required|string',
+            'rt' => 'nullable|string|max:3',
+            'rw' => 'nullable|string|max:3',
+            'kapasitas' => 'nullable|integer|min:0',
+            'deskripsi' => 'nullable|string',
         ]);
-    }
 
-    // Buat fasilitas
-    $fasilitas = FasilitasUmum::create($validated);
+        // Validasi file upload
+        if ($request->hasFile('media_files')) {
+            $request->validate([
+                'media_files.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+                'captions.*' => 'nullable|string|max:255',
+            ]);
+        }
 
-    // Upload dan simpan file ke tabel media
-    if ($request->hasFile('media_files')) {
-        $mediaFiles = $request->file('media_files');
-        $captions = $request->input('captions', []);
+        // Buat fasilitas
+        $fasilitas = FasilitasUmum::create($validated);
 
-        foreach ($mediaFiles as $index => $file) {
-            if ($file->isValid()) {
-                // Generate nama file unik
-                $fileName = time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
+        // Upload dan simpan file ke tabel media
+        if ($request->hasFile('media_files')) {
+            $mediaFiles = $request->file('media_files');
+            $captions = $request->input('captions', []);
 
-                // Simpan file ke storage
-                $path = $file->storeAs('media/fasilitas', $fileName, 'public');
+            foreach ($mediaFiles as $index => $file) {
+                if ($file->isValid()) {
+                    // Generate nama file unik
+                    $fileName = time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
 
-                // Ambil caption jika ada
-                $caption = isset($captions[$index]) ? $captions[$index] : null;
+                    // Simpan file ke storage
+                    $path = $file->storeAs('media/fasilitas', $fileName, 'public');
 
-                // Simpan ke tabel media
-                \App\Models\Media::create([
-                    'ref_table' => 'fasilitas_umum',
-                    'ref_id' => $fasilitas->fasilitas_id,
-                    'file_name' => $path,
-                    'caption' => $caption,
-                    'mime_type' => $file->getMimeType(),
-                    'sort_order' => $index, // Urutan berdasarkan index
-                ]);
+                    // Ambil caption jika ada
+                    $caption = isset($captions[$index]) ? $captions[$index] : null;
+
+                    // Simpan ke tabel media
+                    \App\Models\Media::create([
+                        'ref_table' => 'fasilitas_umum',
+                        'ref_id' => $fasilitas->fasilitas_id,
+                        'file_name' => $path,
+                        'caption' => $caption,
+                        'mime_type' => $file->getMimeType(),
+                        'sort_order' => $index, // Urutan berdasarkan index
+                    ]);
+                }
             }
         }
-    }
 
-    return redirect()->route('fasilitas.index')
-        ->with('success', 'Fasilitas umum berhasil ditambahkan dengan foto.');
-}
+        return redirect()->route('fasilitas.index')
+            ->with('success', 'Fasilitas umum berhasil ditambahkan dengan foto.');
+    }
     /**
      * Display the specified resource.
      */
-    public function show(FasilitasUmum $fasilita)
+    public function show($id)
     {
-        // Decode foto jika ada
-        $fasilita->fotos = $fasilita->fotos ? json_decode($fasilita->fotos, true) : [];
-        return view('pages.fasilitas.show', compact('fasilita'));
+        // Menggunakan findOrFail untuk memastikan data ditemukan berdasarkan fasilitas_id
+        $fasilitas = FasilitasUmum::findOrFail($id);
+
+        // Decode foto jika ada (JSON to Array)
+        $fasilitas->fotos = $fasilitas->fotos ? json_decode($fasilitas->fotos, true) : [];
+
+        return view('pages.fasilitas.show', compact('fasilitas'));
     }
 
     /**
@@ -145,64 +149,64 @@ class FasilitasUmumController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, FasilitasUmum $fasilita)
-{
-    // Validasi data fasilitas
-    $validated = $request->validate([
-        'name' => 'required|string|max:100',
-        'jenis' => 'required|string|max:50',
-        'alamat' => 'required|string',
-        'rt' => 'nullable|string|max:3',
-        'rw' => 'nullable|string|max:3',
-        'kapasitas' => 'nullable|integer|min:0',
-        'deskripsi' => 'nullable|string',
-    ]);
-
-    // Validasi file upload tambahan
-    if ($request->hasFile('media_files')) {
-        $request->validate([
-            'media_files.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'captions.*' => 'nullable|string|max:255',
+    {
+        // Validasi data fasilitas
+        $validated = $request->validate([
+            'name' => 'required|string|max:100',
+            'jenis' => 'required|string|max:50',
+            'alamat' => 'required|string',
+            'rt' => 'nullable|string|max:3',
+            'rw' => 'nullable|string|max:3',
+            'kapasitas' => 'nullable|integer|min:0',
+            'deskripsi' => 'nullable|string',
         ]);
-    }
 
-    // Update data fasilitas
-    $fasilita->update($validated);
+        // Validasi file upload tambahan
+        if ($request->hasFile('media_files')) {
+            $request->validate([
+                'media_files.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+                'captions.*' => 'nullable|string|max:255',
+            ]);
+        }
 
-    // Upload dan simpan file tambahan ke tabel media
-    if ($request->hasFile('media_files')) {
-        $mediaFiles = $request->file('media_files');
-        $captions = $request->input('captions', []);
+        // Update data fasilitas
+        $fasilita->update($validated);
 
-        // Hitung urutan terakhir
-        $lastSortOrder = $fasilita->media()->max('sort_order') ?? -1;
+        // Upload dan simpan file tambahan ke tabel media
+        if ($request->hasFile('media_files')) {
+            $mediaFiles = $request->file('media_files');
+            $captions = $request->input('captions', []);
 
-        foreach ($mediaFiles as $index => $file) {
-            if ($file->isValid()) {
-                // Generate nama file unik
-                $fileName = time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
+            // Hitung urutan terakhir
+            $lastSortOrder = $fasilita->media()->max('sort_order') ?? -1;
 
-                // Simpan file ke storage
-                $path = $file->storeAs('media/fasilitas', $fileName, 'public');
+            foreach ($mediaFiles as $index => $file) {
+                if ($file->isValid()) {
+                    // Generate nama file unik
+                    $fileName = time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
 
-                // Ambil caption jika ada
-                $caption = isset($captions[$index]) ? $captions[$index] : null;
+                    // Simpan file ke storage
+                    $path = $file->storeAs('media/fasilitas', $fileName, 'public');
 
-                // Simpan ke tabel media
-                \App\Models\Media::create([
-                    'ref_table' => 'fasilitas_umum',
-                    'ref_id' => $fasilita->fasilitas_id,
-                    'file_name' => $path,
-                    'caption' => $caption,
-                    'mime_type' => $file->getMimeType(),
-                    'sort_order' => $lastSortOrder + $index + 1,
-                ]);
+                    // Ambil caption jika ada
+                    $caption = isset($captions[$index]) ? $captions[$index] : null;
+
+                    // Simpan ke tabel media
+                    \App\Models\Media::create([
+                        'ref_table' => 'fasilitas_umum',
+                        'ref_id' => $fasilita->fasilitas_id,
+                        'file_name' => $path,
+                        'caption' => $caption,
+                        'mime_type' => $file->getMimeType(),
+                        'sort_order' => $lastSortOrder + $index + 1,
+                    ]);
+                }
             }
         }
-    }
 
-    return redirect()->route('fasilitas.show', $fasilita->fasilitas_id)
-        ->with('success', 'Fasilitas umum berhasil diperbarui.');
-}
+        return redirect()->route('fasilitas.show', $fasilita->fasilitas_id)
+            ->with('success', 'Fasilitas umum berhasil diperbarui.');
+    }
     /**
      * Remove the specified resource from storage.
      */
@@ -227,23 +231,23 @@ class FasilitasUmumController extends Controller
     /**
      * Hapus foto tertentu dari fasilitas
      */
-  /**
- * Hapus media tertentu
- */
-public function deleteMedia($mediaId)
-{
-    $media = \App\Models\Media::findOrFail($mediaId);
+    /**
+     * Hapus media tertentu
+     */
+    public function deleteMedia($mediaId)
+    {
+        $media = \App\Models\Media::findOrFail($mediaId);
 
-    // Hapus file dari storage
-    if (\Illuminate\Support\Facades\Storage::disk('public')->exists($media->file_name)) {
-        \Illuminate\Support\Facades\Storage::disk('public')->delete($media->file_name);
+        // Hapus file dari storage
+        if (\Illuminate\Support\Facades\Storage::disk('public')->exists($media->file_name)) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($media->file_name);
+        }
+
+        // Hapus dari database
+        $media->delete();
+
+        return response()->json(['success' => true]);
     }
-
-    // Hapus dari database
-    $media->delete();
-
-    return response()->json(['success' => true]);
-}
     /**
      * Search fasilitas
      */

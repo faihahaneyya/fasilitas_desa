@@ -12,7 +12,7 @@
             </div>
 
             <div class="card-body">
-                <form action="{{ route('syarat.store') }}" method="POST">
+                <form action="{{ route('syarat.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <div class="row">
@@ -51,6 +51,16 @@
                             name="deskripsi" rows="4"
                             placeholder="Jelaskan detail syarat di sini...">{{ old('deskripsi') }}</textarea>
                         @error('deskripsi')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="gambar_syarat" class="form-label fw-bold">Gambar Contoh / Lampiran Syarat</label>
+                        <input type="file" class="form-control @error('gambar_syarat') is-invalid @enderror"
+                            id="gambar_syarat" name="gambar_syarat" accept="image/*">
+                        <div class="form-text">Opsional: Unggah gambar contoh agar warga tidak salah paham.</div>
+                        @error('gambar_syarat')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

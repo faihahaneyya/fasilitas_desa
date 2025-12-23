@@ -45,6 +45,12 @@ class PeminjamanFasilitas extends Model
         return $this->belongsTo(Warga::class, 'warga_id', 'warga_id');
     }
 
+    public function media()
+    {
+        return $this->hasMany(Media::class, 'ref_id', 'pinjam_id')
+            ->where('ref_table', 'peminjaman');
+    }
+
     // Accessor untuk durasi peminjaman
     public function getDurasiAttribute()
     {
@@ -85,13 +91,13 @@ class PeminjamanFasilitas extends Model
     public function scopeSearch($query, $search)
     {
         return $query->whereHas('warga', function ($q) use ($search) {
-                    $q->where('nama', 'like', "%{$search}%")
-                      ->orWhere('no_ktp', 'like', "%{$search}%");
-                })
-                ->orWhereHas('fasilitas', function ($q) use ($search) {
-                    $q->where('name', 'like', "%{$search}%");
-                })
-                ->orWhere('tujuan', 'like', "%{$search}%");
+            $q->where('nama', 'like', "%{$search}%")
+                ->orWhere('no_ktp', 'like', "%{$search}%");
+        })
+            ->orWhereHas('fasilitas', function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%");
+            })
+            ->orWhere('tujuan', 'like', "%{$search}%");
     }
 
     // Scope untuk filter berdasarkan status
@@ -110,11 +116,11 @@ class PeminjamanFasilitas extends Model
             ->where('status', 'approved')
             ->where(function ($q) use ($tanggal_mulai, $tanggal_selesai) {
                 $q->whereBetween('tanggal_mulai', [$tanggal_mulai, $tanggal_selesai])
-                  ->orWhereBetween('tanggal_selesai', [$tanggal_mulai, $tanggal_selesai])
-                  ->orWhere(function ($q2) use ($tanggal_mulai, $tanggal_selesai) {
-                      $q2->where('tanggal_mulai', '<=', $tanggal_mulai)
-                         ->where('tanggal_selesai', '>=', $tanggal_selesai);
-                  });
+                    ->orWhereBetween('tanggal_selesai', [$tanggal_mulai, $tanggal_selesai])
+                    ->orWhere(function ($q2) use ($tanggal_mulai, $tanggal_selesai) {
+                        $q2->where('tanggal_mulai', '<=', $tanggal_mulai)
+                            ->where('tanggal_selesai', '>=', $tanggal_selesai);
+                    });
             });
 
         if ($excludeId) {

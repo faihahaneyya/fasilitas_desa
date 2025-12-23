@@ -35,8 +35,8 @@ class PembayaranFasilitas extends Model
     // Relasi ke tabel media untuk bukti pembayaran
     public function buktiPembayaran()
     {
-        return $this->hasMany(Media::class, 'ref_id', 'pembayaran_id')
-                    ->where('ref_table', 'pembayaran_fasilitas')
-                    ->orderBy('sort_order', 'asc');
+        // Pastikan ref_table sesuai dengan string yang Anda simpan saat upload
+        return $this->hasMany(Media::class, 'ref_id', 'bayar_id')
+            ->where('ref_table', 'pembayaran_fasilitas');
     }
 }

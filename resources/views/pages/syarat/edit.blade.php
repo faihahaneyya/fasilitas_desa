@@ -12,7 +12,7 @@
             </div>
 
             <div class="card-body">
-                <form action="{{ route('syarat.update', $syarat->syarat_id) }}" method="POST">
+                <form action="{{ route('syarat.update', $syarat->syarat_id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -51,7 +51,27 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Gambar Contoh / Lampiran</label>
+                        
+                        @if($syarat->media)
+                            <div class="mb-3" id="existing-image">
+                                <div class="position-relative d-inline-block">
+                                    <img src="{{ asset('storage/' . $syarat->media->file_name) }}" 
+                                        class="img-thumbnail" style="max-height: 200px;">
+                                    <p class="small text-muted mt-1 mb-0">Gambar saat ini</p>
+                                </div>
+                            </div>
+                        @endif
 
+                        <input type="file" class="form-control @error('gambar_syarat') is-invalid @enderror" 
+                            id="gambar_syarat" name="gambar_syarat" accept="image/*">
+                        <div class="form-text">Pilih file baru jika ingin mengganti gambar lama.</div>
+                        
+                        @error('gambar_syarat')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a href="{{ route('syarat.index') }}" class="btn btn-secondary me-md-2">
                             <i class="bi bi-arrow-left me-2"></i> Batal

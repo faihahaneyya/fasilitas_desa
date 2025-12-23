@@ -32,8 +32,6 @@ Route::post('/peminjaman/{peminjaman}/status', [PeminjamanFasilitasController::c
 Route::get('/peminjaman/calendar/{fasilitas_id?}', [PeminjamanFasilitasController::class, 'calendar'])->name('peminjaman.calendar');
 Route::get('/peminjaman/search', [PeminjamanFasilitasController::class, 'search'])->name('peminjaman.search');
 
-
-
 // Atau route manual
 Route::get('/peminjaman/{id}', [PeminjamanFasilitasController::class, 'show'])
     ->name('peminjaman.show');
@@ -47,8 +45,6 @@ Route::resource(
 // Route about
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 
-Route::get('/about', [PageController::class, 'about'])->name('about');
-
 // routes/web.php
 Route::view('/about', 'pages.about')->name('about');
 
@@ -57,6 +53,7 @@ Route::view('/developer', 'pages.developer-profile')->name('developer.show');
 Route::resource('users', UserController::class);
 Route::resource('syarat-fasilitas', SyaratFasilitasController::class)->names('syarat');
 Route::resource('petugas-fasilitas', PetugasFasilitasController::class)->names('petugas');
+Route::delete('/peminjaman/media/{id}', [PeminjamanFasilitasController::class, 'destroyMedia'])->name('peminjaman.media.destroy');
 
 // Route::get('/users', [UserController::class, 'index'])->name('users.index');
 // Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');

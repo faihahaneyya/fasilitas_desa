@@ -4,7 +4,6 @@
 
 @section('content')
     <div class="container-fluid">
-        <!-- Header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h4 class="fw-bold mb-0">
@@ -18,10 +17,8 @@
         </div>
 
         <div class="row">
-            <!-- Card Utama -->
             <div class="col-lg-8 mb-4">
                 <div class="card border-0 shadow-sm h-100">
-                    <!-- Card Header -->
                     <div class="card-header bg-white border-bottom-0 pb-0">
                         <div class="d-flex justify-content-between align-items-start">
                             <h5 class="fw-bold mb-2">Informasi Pembayaran</h5>
@@ -31,9 +28,7 @@
                         </div>
                     </div>
 
-                    <!-- Card Body -->
                     <div class="card-body">
-                        <!-- Jumlah Pembayaran -->
                         <div class="text-center mb-5">
                             <div class="display-6 fw-bold text-primary">
                                 Rp {{ number_format($pembayaran->jumlah, 0, ',', '.') }}
@@ -49,7 +44,6 @@
                             </div>
                         </div>
 
-                        <!-- Informasi Peminjaman -->
                         @if ($pembayaran->peminjaman)
                             <div class="mb-4">
                                 <h6 class="fw-bold mb-3">
@@ -76,7 +70,6 @@
                             </div>
                         @endif
 
-                        <!-- Keterangan -->
                         @if ($pembayaran->keterangan)
                             <div class="mb-4">
                                 <h6 class="fw-bold mb-3">
@@ -88,33 +81,64 @@
                             </div>
                         @endif
 
-                        <!-- Timeline -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold mb-3">
+                                <i class="bi bi-image text-muted me-2"></i> Bukti Pembayaran
+                            </h6>
+                            <div class="border rounded p-3 bg-light">
+                                @if($pembayaran->buktiPembayaran && $pembayaran->buktiPembayaran->count() > 0)
+                                    <div class="row g-3">
+                                        @foreach($pembayaran->buktiPembayaran as $bukti)
+                                            <div class="col-md-4 col-sm-6">
+                                                <div class="card border shadow-sm h-100 overflow-hidden">
+                                                    <a href="{{ asset('storage/' . $bukti->file_name) }}" 
+                                                       data-fancybox="gallery" 
+                                                       data-caption="{{ $bukti->caption ?? 'Bukti Pembayaran' }}">
+                                                        <img src="{{ asset('storage/' . $bukti->file_name) }}" 
+                                                             class="card-img-top" 
+                                                             alt="Bukti Pembayaran"
+                                                             style="height: 160px; object-fit: cover; cursor: pointer;">
+                                                    </a>
+                                                    @if($bukti->caption)
+                                                        <div class="card-body p-2 text-center bg-white">
+                                                            <small class="text-muted">{{ $bukti->caption }}</small>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <div class="text-center py-4 text-muted">
+                                        <i class="bi bi-camera-off fs-1 d-block mb-2"></i>
+                                        <p class="mb-0 small">Tidak ada bukti pembayaran yang diunggah.</p>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
                         <div>
                             <h6 class="fw-bold mb-3">
                                 <i class="bi bi-clock-history text-muted me-2"></i> Timeline
                             </h6>
                             <div class="timeline">
                                 <div class="d-flex align-items-center mb-3">
-                                    <div
-                                        class="timeline-icon bg-primary rounded-circle d-flex align-items-center justify-content-center me-3">
+                                    <div class="timeline-icon bg-primary rounded-circle d-flex align-items-center justify-content-center me-3">
                                         <i class="bi bi-plus text-white"></i>
                                     </div>
                                     <div>
                                         <div class="fw-semibold">Pembayaran Dibuat</div>
-                                        <div class="text-muted small">{{ $pembayaran->created_at->format('d M Y, H:i') }}
-                                        </div>
+                                        <div class="text-muted small">{{ $pembayaran->created_at->format('d M Y, H:i') }}</div>
                                     </div>
                                 </div>
                                 @if ($pembayaran->updated_at != $pembayaran->created_at)
                                     <div class="d-flex align-items-center">
-                                        <div
-                                            class="timeline-icon bg-warning rounded-circle d-flex align-items-center justify-content-center me-3">
+                                        <div class="timeline-icon bg-warning rounded-circle d-flex align-items-center justify-content-center me-3">
                                             <i class="bi bi-pencil text-white"></i>
                                         </div>
                                         <div>
                                             <div class="fw-semibold">Terakhir Diperbarui</div>
-                                            <div class="text-muted small">
-                                                {{ $pembayaran->updated_at->format('d M Y, H:i') }}</div>
+                                            <div class="text-muted small">{{ $pembayaran->updated_at->format('d M Y, H:i') }}</div>
                                         </div>
                                     </div>
                                 @endif
@@ -124,9 +148,7 @@
                 </div>
             </div>
 
-            <!-- Sidebar -->
             <div class="col-lg-4">
-                <!-- Action Card -->
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white border-bottom-0">
                         <h6 class="fw-bold mb-0">Aksi</h6>
@@ -152,27 +174,26 @@
                     </div>
                 </div>
 
-                <!-- Info Card -->
                 <div class="card border-0 shadow-sm">
                     <div class="card-header bg-white border-bottom-0">
                         <h6 class="fw-bold mb-0">Informasi Detail</h6>
                     </div>
                     <div class="card-body">
                         <div class="row mb-2">
-                            <div class="col-6 text-muted">ID Pembayaran</div>
-                            <div class="col-6 fw-semibold text-end">#{{ $pembayaran->bayar_id }}</div>
+                            <div class="col-6 text-muted small">ID Pembayaran</div>
+                            <div class="col-6 fw-semibold text-end small">#{{ $pembayaran->bayar_id }}</div>
                         </div>
                         <div class="row mb-2">
-                            <div class="col-6 text-muted">ID Peminjaman</div>
-                            <div class="col-6 fw-semibold text-end">#{{ $pembayaran->pinjam_id }}</div>
+                            <div class="col-6 text-muted small">ID Peminjaman</div>
+                            <div class="col-6 fw-semibold text-end small">#{{ $pembayaran->pinjam_id }}</div>
                         </div>
                         <div class="row mb-2">
-                            <div class="col-6 text-muted">Metode</div>
-                            <div class="col-6 fw-semibold text-end">{{ ucfirst($pembayaran->metode) }}</div>
+                            <div class="col-6 text-muted small">Metode</div>
+                            <div class="col-6 fw-semibold text-end small">{{ ucfirst($pembayaran->metode) }}</div>
                         </div>
                         <div class="row">
-                            <div class="col-6 text-muted">Status</div>
-                            <div class="col-6 fw-semibold text-end text-success">
+                            <div class="col-6 text-muted small">Status</div>
+                            <div class="col-6 fw-semibold text-end text-success small">
                                 <i class="bi bi-check-circle-fill me-1"></i>Lunas
                             </div>
                         </div>
@@ -182,37 +203,20 @@
         </div>
     </div>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    <script>
+        Fancybox.bind("[data-fancybox]", {});
+    </script>
+
     <style>
-        .card {
-            border-radius: 12px;
-        }
-
-        .badge {
-            font-size: 0.9em;
-        }
-
-        .display-6 {
-            font-size: 2.5rem;
-            font-weight: 700;
-        }
-
-        .timeline-icon {
-            width: 40px;
-            height: 40px;
-        }
-
-        .btn {
-            border-radius: 8px;
-            padding: 0.75rem 1rem;
-            font-weight: 500;
-        }
-
-        .d-grid {
-            display: grid;
-        }
-
-        .gap-2 {
-            gap: 0.75rem;
-        }
+        .card { border-radius: 12px; }
+        .badge { font-size: 0.9em; }
+        .display-6 { font-size: 2.5rem; font-weight: 700; }
+        .timeline-icon { width: 40px; height: 40px; }
+        .btn { border-radius: 8px; padding: 0.75rem 1rem; font-weight: 500; }
+        .d-grid { display: grid; }
+        .gap-2 { gap: 0.75rem; }
+        .card-img-top:hover { opacity: 0.9; transition: 0.3s; }
     </style>
 @endsection

@@ -19,4 +19,8 @@ class SyaratFasilitas extends Model
     {
         return $this->belongsTo(FasilitasUmum::class, 'fasilitas_id');
     }
+    public function media()
+    {
+        return $this->hasOne(Media::class, 'ref_id', 'syarat_id')->where('ref_table', 'syarat_fasilitas');
+    }
 }
