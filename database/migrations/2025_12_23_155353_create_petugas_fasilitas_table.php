@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('petugas_fasilitas', function (Blueprint $table) {
             $table->id('petugas_id'); // Primary Key
-            $table->foreignId('fasilitas_id')->constrained('fasilitas')->onDelete('cascade');
+            $table->foreignId('fasilitas_id')->constrained('fasilitas_umum',"fasilitas_id")->onDelete('cascade');
             $table->foreignId('petugas_warga_id')->constrained('warga', 'warga_id')->onDelete('cascade');
             $table->string('peran'); // Contoh: Ketua, Sekretaris, Anggota
             $table->timestamps();

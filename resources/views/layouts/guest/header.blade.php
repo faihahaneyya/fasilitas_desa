@@ -49,6 +49,9 @@
                         <li><a class="dropdown-item" href="{{ route('syarat.index') }}">
                             <i class="bi bi-cash-coin me-2"></i> Syarat Fasilitas
                         </a></li>
+                        <li><a class="dropdown-item" href="{{ route('petugas.index') }}">
+                            <i class="bi bi-cash-coin me-2"></i> Petugas Fasilitas
+                        </a></li>
                     </ul>
                 </li>
 

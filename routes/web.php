@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FasilitasUmumController;
 use App\Http\Controllers\PembayaranFasilitasController;
 use App\Http\Controllers\PeminjamanFasilitasController;
+use App\Http\Controllers\PetugasFasilitasController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\SyaratFasilitasController;
@@ -55,6 +56,7 @@ Route::view('/developer', 'pages.developer-profile')->name('developer.show');
 
 Route::resource('users', UserController::class);
 Route::resource('syarat-fasilitas', SyaratFasilitasController::class)->names('syarat');
+Route::resource('petugas-fasilitas', PetugasFasilitasController::class)->names('petugas');
 
 // Route::get('/users', [UserController::class, 'index'])->name('users.index');
 // Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
