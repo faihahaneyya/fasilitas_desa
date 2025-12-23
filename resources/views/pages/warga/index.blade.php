@@ -63,20 +63,20 @@
                         <div class="card-footer bg-white border-top-0 pt-0">
                             <div class="d-flex justify-content-end">
                                 <!-- Show Button -->
-                                <a href="{{ route('warga.show', $item->warga_id) }}"
-                                    class="btn btn-sm btn-outline-info me-2" title="Detail">
+                                <a href="{{ route('warga.show', $item->warga_id) }}" class="btn btn-sm btn-outline-info me-2"
+                                    title="Detail">
                                     <i class="bi bi-eye"></i>
                                 </a>
 
                                 <!-- Edit Button -->
-                                <a href="{{ route('warga.edit', $item->warga_id) }}"
-                                    class="btn btn-sm btn-outline-warning me-2" title="Edit">
+                                <a href="{{ route('warga.edit', $item->warga_id) }}" class="btn btn-sm btn-outline-warning me-2"
+                                    title="Edit">
                                     <i class="bi bi-pencil"></i>
                                 </a>
 
                                 <!-- Delete Button -->
-                                <form action="{{ route('warga.destroy', $item->warga_id) }}" method="POST"
-                                    class="d-inline" onsubmit="return confirm('Hapus data warga ini?')">
+                                <form action="{{ route('warga.destroy', $item->warga_id) }}" method="POST" class="d-inline"
+                                    onsubmit="return confirm('Hapus data warga ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-outline-danger" title="Hapus">
@@ -105,7 +105,7 @@
             @endforelse
         </div>
 
-         <!-- Pagination -->
+        <!-- Pagination -->
         @if ($warga->hasPages())
             <div class="d-flex justify-content-between align-items-center mt-5 mb-4">
                 <!-- Info Results -->
@@ -262,8 +262,15 @@
                 }
 
                 @keyframes gentlePulse {
-                    0%, 100% { transform: scale(1); }
-                    50% { transform: scale(1.04); }
+
+                    0%,
+                    100% {
+                        transform: scale(1);
+                    }
+
+                    50% {
+                        transform: scale(1.04);
+                    }
                 }
 
                 .pagination {

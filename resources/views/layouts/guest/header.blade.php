@@ -46,6 +46,9 @@
                         <li><a class="dropdown-item" href="{{ route('users.index') }}">
                             <i class="bi bi-cash-coin me-2"></i> User
                         </a></li>
+                        <li><a class="dropdown-item" href="{{ route('syarat.index') }}">
+                            <i class="bi bi-cash-coin me-2"></i> Syarat Fasilitas
+                        </a></li>
                     </ul>
                 </li>
 

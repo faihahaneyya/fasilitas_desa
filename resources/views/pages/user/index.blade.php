@@ -34,13 +34,6 @@
                     <option value="user" {{ request('role') == 'user' ? 'selected' : '' }}>User</option>
                 </select>
             </div>
-            <div class="col-md-3">
-                <select class="form-select" name="status">
-                    <option value="">All Status</option>
-                    <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
-                    <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
-                </select>
-            </div>
         </form>
     </div>
 </div>
@@ -111,16 +104,6 @@
                         <div class="d-flex align-items-center mb-2">
                             <i class="fas fa-user-tag text-muted me-2" style="width: 20px;"></i>
                             <span class="badge bg-info">{{ $user->role ?? 'User' }}</span>
-                        </div>
-
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="fas fa-circle text-muted me-2" style="width: 20px;"></i>
-                            @php
-                                $status = $user->is_active ?? true;
-                                $statusClass = $status ? 'success' : 'danger';
-                                $statusText = $status ? 'Active' : 'Inactive';
-                            @endphp
-                            <span class="badge bg-{{ $statusClass }}">{{ $statusText }}</span>
                         </div>
 
                         <div class="d-flex align-items-center">

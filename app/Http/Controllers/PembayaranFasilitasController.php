@@ -26,7 +26,7 @@ class PembayaranFasilitasController extends Controller
             ->where('total_biaya', '>', 0)
             ->get();
 
-        return view('pages.pembayaran-fasilitas.create', compact('peminjaman'));
+        return view('pages.pembayaran_fasilitas.create', compact('peminjaman'));
     }
 
     public function store(Request $request)
@@ -81,7 +81,7 @@ class PembayaranFasilitasController extends Controller
         $pembayaran = PembayaranFasilitas::with(['peminjaman.fasilitas', 'buktiPembayaran'])
             ->findOrFail($id);
 
-        return view('pages.pembayaran-fasilitas.show', compact('pembayaran'));
+        return view('pages.pembayaran_fasilitas.show', compact('pembayaran'));
     }
 
     // UBAH INI: Gunakan explicit find
@@ -95,7 +95,7 @@ class PembayaranFasilitasController extends Controller
             ->where('total_biaya', '>', 0)
             ->get();
 
-        return view('pages.pembayaran-fasilitas.edit', compact('pembayaran', 'peminjaman'));
+        return view('pages.pembayaran_fasilitas.edit', compact('pembayaran', 'peminjaman'));
     }
 
     // UBAH INI: Gunakan explicit find

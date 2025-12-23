@@ -82,21 +82,21 @@
                         <div class="btn-group" role="group">
 
                             {{-- DETAIL --}}
-                            <a href="{{ route('pembayaran-fasilitas.show', $item->pembayaran_id) }}"
+                            <a href="{{ route('pembayaran-fasilitas.show', $item->bayar_id) }}"
                                class="btn btn-sm btn-outline-primary"
                                title="Detail">
                                 <i class="bi bi-eye"></i>
                             </a>
 
                             {{-- EDIT --}}
-                            <a href="{{ route('pembayaran-fasilitas.edit', $item->getKey()) }}"
+                            <a href="{{ route('pembayaran-fasilitas.edit', $item->bayar_id) }}"
                                class="btn btn-sm btn-outline-warning"
                                title="Edit">
                                 <i class="bi bi-pencil"></i>
                             </a>
 
                             {{-- DELETE --}}
-                            <form action="{{ route('pembayaran-fasilitas.destroy', $item->getKey()) }}"
+                            <form action="{{ route('pembayaran-fasilitas.destroy', $item->bayar_id) }}"
                                   method="POST"
                                   onsubmit="return confirm('Hapus pembayaran ini?')">
                                 @csrf

@@ -131,32 +131,12 @@
                                     <label for="role" class="form-label fw-semibold">User Role <span class="text-danger">*</span></label>
                                     <select class="form-select @error('role') is-invalid @enderror" name="role" id="role" required>
                                         <option value="">Select Role</option>
-                                        <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Administrator</option>
+                                        <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
                                         <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>User</option>
-                                        <option value="editor" {{ old('role') == 'editor' ? 'selected' : '' }}>Editor</option>
-                                        <option value="manager" {{ old('role') == 'manager' ? 'selected' : '' }}>Manager</option>
                                     </select>
                                     @error('role')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
-                                </div>
-
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label fw-semibold">Account Status</label>
-                                    <div class="d-flex gap-3">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="is_active" id="active" value="1" checked>
-                                            <label class="form-check-label" for="active">
-                                                Active
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="is_active" id="inactive" value="0">
-                                            <label class="form-check-label" for="inactive">
-                                                Inactive
-                                            </label>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
 
@@ -333,17 +313,6 @@
     document.getElementById('role').addEventListener('change', function() {
         const role = this.value ? this.options[this.selectedIndex].text : 'User';
         document.getElementById('rolePreview').textContent = role;
-    });
-
-    // Account status preview
-    document.querySelectorAll('input[name="is_active"]').forEach(radio => {
-        radio.addEventListener('change', function() {
-            const status = this.value === '1' ? 'Active' : 'Inactive';
-            const badgeClass = this.value === '1' ? 'bg-success' : 'bg-danger';
-            const badge = document.getElementById('statusPreview');
-            badge.textContent = status;
-            badge.className = `badge ${badgeClass}`;
-        });
     });
 
     // Email verified preview
