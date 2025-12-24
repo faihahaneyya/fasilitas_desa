@@ -13,7 +13,7 @@ class UserController extends Controller
         $filterableColumns = ['role'];
         $searchableColumns = ['name', 'email'];
 
-        $users = User::filter($request, $filterableColumns) 
+        $users = User::filter($request, $filterableColumns)
             ->search($request, $searchableColumns)
             ->latest()
             ->paginate(10)
@@ -47,7 +47,10 @@ class UserController extends Controller
             ->with('success', 'User berhasil ditambahkan');
     }
 
-
+    public function show(User $user)
+    {
+        return view('pages.user.show', compact('user'));
+    }
     public function edit(User $user)
     {
         // Variabel $user otomatis dicari berdasarkan ID berkat Route Model Binding
@@ -61,7 +64,7 @@ class UserController extends Controller
         ]);
 
         $user->update($request->only(['name', 'role']));
-        return redirect()->back()->with('success', 'User berhasil diupdate');
+        return redirect()->route('users.index')->with('success', 'User berhasil diupdate');
     }
 
     public function destroy(User $user)
