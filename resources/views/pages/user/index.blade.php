@@ -140,18 +140,21 @@
 
                         <!-- Quick Actions -->
                         <div class="card-footer bg-transparent border-top-0 pt-0">
-                            <div class="d-flex justify-content-between">
-                                <a href="{{ route('users.show', $user) }}" class="btn btn-sm btn-outline-info">
+                            <div class="d-flex justify-content-between align-items-center gap-2">
+                                <a href="{{ route('users.show', $user) }}" class="btn btn-sm btn-outline-info flex-fill"
+                                    data-bs-toggle="tooltip" title="View Details">
                                     <i class="fas fa-eye me-1"></i> View
                                 </a>
-                                <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-outline-warning">
+                                <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-outline-warning flex-fill"
+                                    data-bs-toggle="tooltip" title="Edit User">
                                     <i class="fas fa-edit me-1"></i> Edit
                                 </a>
-                                <form action="{{ route('users.destroy', $user) }}" method="POST" class="d-inline"
+                                <form action="{{ route('users.destroy', $user) }}" method="POST" class="flex-fill m-0"
                                     onsubmit="return confirmDelete(event)">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger w-100" data-bs-toggle="tooltip"
+                                        title="Delete User">
                                         <i class="fas fa-trash me-1"></i> Delete
                                     </button>
                                 </form>

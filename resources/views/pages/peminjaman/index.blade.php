@@ -13,9 +13,6 @@
                 <p class="text-muted mb-0">Total: {{ $peminjaman->total() }} peminjaman</p>
             </div>
             <div>
-                <a href="{{ route('peminjaman.calendar') }}" class="btn btn-info me-2">
-                    <i class="bi bi-calendar-week me-2"></i> Kalender
-                </a>
                 <a href="{{ route('peminjaman.create') }}" class="btn btn-success">
                     <i class="bi bi-plus-circle me-2"></i> Ajukan Peminjaman
                 </a>
