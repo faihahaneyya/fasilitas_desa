@@ -10,9 +10,15 @@ class WargaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $warga = Warga::latest()->paginate(10);
+
+        $filterableColumns = ['jenis_kelamin'];
+        $searchableColumns = ['nama', 'email', 'telp'];
+        $warga = Warga::filter($request, $filterableColumns)
+            ->search($request, $searchableColumns)
+            ->paginate(9)
+            ->withQueryString();
         return view('pages.warga.index', compact('warga'));
     }
 
@@ -24,9 +30,18 @@ class WargaController extends Controller
         $agama = ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Lainnya'];
 
         $pekerjaan = [
-            'PNS', 'TNI', 'POLRI', 'Pegawai Swasta', 'Wiraswasta',
-            'Petani', 'Nelayan', 'Buruh', 'Pelajar/Mahasiswa',
-            'Ibu Rumah Tangga', 'Pensiunan', 'Lainnya'
+            'PNS',
+            'TNI',
+            'POLRI',
+            'Pegawai Swasta',
+            'Wiraswasta',
+            'Petani',
+            'Nelayan',
+            'Buruh',
+            'Pelajar/Mahasiswa',
+            'Ibu Rumah Tangga',
+            'Pensiunan',
+            'Lainnya'
         ];
 
         return view('pages.warga.create', compact('agama', 'pekerjaan'));
@@ -69,9 +84,18 @@ class WargaController extends Controller
         $agama = ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Lainnya'];
 
         $pekerjaan = [
-            'PNS', 'TNI', 'POLRI', 'Pegawai Swasta', 'Wiraswasta',
-            'Petani', 'Nelayan', 'Buruh', 'Pelajar/Mahasiswa',
-            'Ibu Rumah Tangga', 'Pensiunan', 'Lainnya'
+            'PNS',
+            'TNI',
+            'POLRI',
+            'Pegawai Swasta',
+            'Wiraswasta',
+            'Petani',
+            'Nelayan',
+            'Buruh',
+            'Pelajar/Mahasiswa',
+            'Ibu Rumah Tangga',
+            'Pensiunan',
+            'Lainnya'
         ];
 
         return view('pages.warga.edit', compact('warga', 'agama', 'pekerjaan'));

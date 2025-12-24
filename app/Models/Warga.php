@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Illuminate\Database\Eloquent\Builder;
 class Warga extends Model
 {
     use HasFactory, SoftDeletes;
@@ -29,17 +29,24 @@ class Warga extends Model
         'warga_id' => 'integer',
     ];
 
-    // Accessor untuk format jenis kelamin
-    public function getJenisKelaminFormattedAttribute()
+    public function scopeFilter(Builder $query, $request, array $filterableColumns): Builder
     {
-        return $this->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan';
+        foreach ($filterableColumns as $column) {
+            if ($request->filled($column)) {
+                $query->where($column, $request->input($column));
+            }
+        }
+        return $query;
     }
 
-    // Scope untuk pencarian
-    public function scopeSearch($query, $search)
+    public function scopeSearch($query, $request, array $columns)
     {
-        return $query->where('nama', 'like', "%{$search}%")
-                    ->orWhere('no_ktp', 'like', "%{$search}%")
-                    ->orWhere('email', 'like', "%{$search}%");
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request, $columns) {
+                foreach ($columns as $column) {
+                    $q->orWhere($column, 'LIKE', '%' . $request->search . '%');
+                }
+            });
+        }
     }
 }

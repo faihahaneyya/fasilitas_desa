@@ -10,11 +10,17 @@ use Illuminate\Support\Facades\Storage;
 
 class PembayaranFasilitasController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pembayaran = PembayaranFasilitas::with('peminjaman.fasilitas')
-            ->latest()
-            ->paginate(10);
+        $filterableColumns = ['metode'];
+        $searchableColumns = ['keterangan'];
+
+        $pembayaran = PembayaranFasilitas::with(['peminjaman.warga', 'peminjaman.fasilitas'])
+            ->filter($request, $filterableColumns)
+            ->search($request, $searchableColumns)
+            ->latest('tanggal')
+            ->paginate(10)
+            ->withQueryString();
 
         return view('pages.pembayaran_fasilitas.index', compact('pembayaran'));
     }

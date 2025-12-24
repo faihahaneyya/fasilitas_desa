@@ -15,7 +15,31 @@
                 <i class="bi bi-plus-circle me-2"></i> Tambah Syarat
             </a>
         </div>
+        <form method="GET" action="{{ route('syarat.index') }}" class="mb-3">
+            <div class="row">
+                <div class="col-md-3">
+                    <select name="fasilitas_id" class="form-select" onchange="this.form.submit()">
+                        <option value="">-- Semua Fasilitas --</option>
+                        @foreach($list_fasilitas as $fasilitas)
+                            <option value="{{ $fasilitas->fasilitas_id }}" {{ request('fasilitas_id') == $fasilitas->fasilitas_id ? 'selected' : '' }}>
+                                {{ $fasilitas->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input type="text" name="search" class="form-control" value="{{ request('search') }}"
+                            placeholder="Cari syarat atau fasilitas...">
+                        <button type="submit" class="btn btn-primary">Cari</button>
+                        @if(request('search') || request('fasilitas_id'))
+                            <a href="{{ route('syarat.index') }}" class="btn btn-outline-danger">Reset</a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </form>
         <div class="row">
             @forelse ($syarat as $item)
                 <div class="col-md-6 col-lg-4 mb-4">
@@ -98,27 +122,9 @@
                     </small>
                 </div>
 
-                <nav aria-label="Page navigation">
-                    <ul class="pagination mb-0" style="gap: 6px;">
-                        {{-- Previous Page Link --}}
-                        @if ($syarat->onFirstPage())
-                            <li class="page-item disabled"><span class="page-link rounded-circle"><i
-                                        class="bi bi-chevron-left"></i></span></li>
-                        @else
-                            <li class="page-item"><a class="page-link rounded-circle shadow-sm"
-                                    href="{{ $syarat->previousPageUrl() }}"><i class="bi bi-chevron-left"></i></a></li>
-                        @endif
-
-                        {{-- Next Page Link --}}
-                        @if ($syarat->hasMorePages())
-                            <li class="page-item"><a class="page-link rounded-circle shadow-sm"
-                                    href="{{ $syarat->nextPageUrl() }}"><i class="bi bi-chevron-right"></i></a></li>
-                        @else
-                            <li class="page-item disabled"><span class="page-link rounded-circle"><i
-                                        class="bi bi-chevron-right"></i></span></li>
-                        @endif
-                    </ul>
-                </nav>
+                <div class="mt-3">
+                    {{ $syarat->links('pagination::bootstrap-5') }}
+                </div>
             </div>
         @endif
     </div>

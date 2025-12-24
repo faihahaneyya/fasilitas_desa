@@ -11,9 +11,20 @@ class FasilitasUmumController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $fasilitas = FasilitasUmum::latest()->paginate(10);
+        // Filter berdasarkan kolom 'jenis'
+        $filterableColumns = ['jenis'];
+
+        // Cari di kolom nama, alamat, dan deskripsi
+        $searchableColumns = ['name', 'alamat', 'deskripsi'];
+
+        $fasilitas = FasilitasUmum::filter($request, $filterableColumns)
+            ->search($request, $searchableColumns)
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
         return view('pages.fasilitas.index', compact('fasilitas'));
     }
 

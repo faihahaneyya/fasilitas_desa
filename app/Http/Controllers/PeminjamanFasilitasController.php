@@ -14,15 +14,19 @@ class PeminjamanFasilitasController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $status = request('status');
-        $peminjaman = PeminjamanFasilitas::with(['fasilitas', 'warga'])
-            ->byStatus($status)
-            ->latest()
-            ->paginate(10);
+        $filterableColumns = ['status'];
+        $searchableColumns = ['tujuan', 'catatan'];
 
-        return view('pages.peminjaman.index', compact('peminjaman', 'status'));
+        $peminjaman = PeminjamanFasilitas::with(['warga', 'fasilitas']) // Load relasi
+            ->filter($request, $filterableColumns)
+            ->search($request, $searchableColumns)
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('pages.peminjaman.index', compact('peminjaman'));
     }
 
     /**

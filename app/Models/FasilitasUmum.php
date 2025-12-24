@@ -4,12 +4,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 
 class FasilitasUmum extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table      = 'fasilitas_umum';
+    protected $table = 'fasilitas_umum';
     protected $primaryKey = 'fasilitas_id';
 
     protected $fillable = [
@@ -25,7 +26,7 @@ class FasilitasUmum extends Model
 
     protected $casts = [
         'fasilitas_id' => 'integer',
-        'kapasitas'    => 'integer',
+        'kapasitas' => 'integer',
         // 'fotos' => 'array', // HAPUS casting ini juga
     ];
 
@@ -40,27 +41,19 @@ class FasilitasUmum extends Model
         }
         return $lokasi;
     }
-
-    public function scopeSearch($query, $search)
-    {
-        return $query->where('name', 'like', "%{$search}%")
-            ->orWhere('jenis', 'like', "%{$search}%")
-            ->orWhere('alamat', 'like', "%{$search}%");
-    }
-
     public function getJenisColorAttribute()
     {
         $colors = [
-            'aula'       => 'primary',
-            'lapangan'   => 'success',
-            'kantor'     => 'info',
-            'puskesmas'  => 'danger',
-            'sekolah'    => 'warning',
+            'aula' => 'primary',
+            'lapangan' => 'success',
+            'kantor' => 'info',
+            'puskesmas' => 'danger',
+            'sekolah' => 'warning',
             'poskamling' => 'secondary',
-            'masjid'     => 'success',
-            'gereja'     => 'info',
-            'pura'       => 'warning',
-            'vihara'     => 'secondary',
+            'masjid' => 'success',
+            'gereja' => 'info',
+            'pura' => 'warning',
+            'vihara' => 'secondary',
         ];
 
         return $colors[strtolower($this->jenis)] ?? 'dark';
@@ -82,5 +75,28 @@ class FasilitasUmum extends Model
     public function fotos()
     {
         return $this->media()->where('mime_type', 'like', 'image/%');
+    }
+
+    public function scopeFilter(Builder $query, $request, array $filterableColumns): Builder
+    {
+        foreach ($filterableColumns as $column) {
+            if ($request->filled($column)) {
+                $query->where($column, $request->input($column));
+            }
+        }
+        return $query;
+    }
+
+    // Scope Search yang kita simpan sebelumnya
+    public function scopeSearch($query, $request, array $columns)
+    {
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request, $columns) {
+                foreach ($columns as $column) {
+                    $q->orWhere($column, 'LIKE', '%' . $request->search . '%');
+                }
+            });
+        }
+        return $query;
     }
 }

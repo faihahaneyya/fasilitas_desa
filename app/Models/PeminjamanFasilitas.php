@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 
 class PeminjamanFasilitas extends Model
 {
@@ -87,46 +88,34 @@ class PeminjamanFasilitas extends Model
         return $labels[$this->status] ?? $this->status;
     }
 
-    // Scope untuk pencarian
-    public function scopeSearch($query, $search)
+    public function scopeFilter(Builder $query, $request, array $filterableColumns): Builder
     {
-        return $query->whereHas('warga', function ($q) use ($search) {
-            $q->where('nama', 'like', "%{$search}%")
-                ->orWhere('no_ktp', 'like', "%{$search}%");
-        })
-            ->orWhereHas('fasilitas', function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%");
-            })
-            ->orWhere('tujuan', 'like', "%{$search}%");
-    }
-
-    // Scope untuk filter berdasarkan status
-    public function scopeByStatus($query, $status)
-    {
-        if ($status) {
-            return $query->where('status', $status);
+        foreach ($filterableColumns as $column) {
+            if ($request->filled($column)) {
+                $query->where($column, $request->input($column));
+            }
         }
         return $query;
     }
 
-    // Validasi tanggal tidak boleh double booking
-    public static function isAvailable($fasilitas_id, $tanggal_mulai, $tanggal_selesai, $excludeId = null)
+    // Scope Search (Modifikasi sedikit untuk mencari di tabel relasi)
+    public function scopeSearch($query, $request, array $columns)
     {
-        $query = self::where('fasilitas_id', $fasilitas_id)
-            ->where('status', 'approved')
-            ->where(function ($q) use ($tanggal_mulai, $tanggal_selesai) {
-                $q->whereBetween('tanggal_mulai', [$tanggal_mulai, $tanggal_selesai])
-                    ->orWhereBetween('tanggal_selesai', [$tanggal_mulai, $tanggal_selesai])
-                    ->orWhere(function ($q2) use ($tanggal_mulai, $tanggal_selesai) {
-                        $q2->where('tanggal_mulai', '<=', $tanggal_mulai)
-                            ->where('tanggal_selesai', '>=', $tanggal_selesai);
-                    });
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request, $columns) {
+                foreach ($columns as $column) {
+                    $q->orWhere($column, 'LIKE', '%' . $request->search . '%');
+                }
+                // Tambahan: Cari berdasarkan nama warga
+                $q->orWhereHas('warga', function ($queryWarga) use ($request) {
+                    $queryWarga->where('nama', 'LIKE', '%' . $request->search . '%');
+                });
+                // Tambahan: Cari berdasarkan nama fasilitas
+                $q->orWhereHas('fasilitas', function ($queryFas) use ($request) {
+                    $queryFas->where('name', 'LIKE', '%' . $request->search . '%');
+                });
             });
-
-        if ($excludeId) {
-            $query->where('pinjam_id', '!=', $excludeId);
         }
-
-        return $query->count() == 0;
+        return $query;
     }
 }

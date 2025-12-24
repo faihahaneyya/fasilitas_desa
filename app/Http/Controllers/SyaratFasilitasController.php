@@ -11,12 +11,25 @@ use Illuminate\Support\Facades\Storage;
 
 class SyaratFasilitasController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Load relasi media dan fasilitas agar nama fasilitas juga tampil (opsional)
-        $syarat = SyaratFasilitas::with(['media', 'fasilitas'])->paginate(10);
+        // Filter berdasarkan ID Fasilitas
+        $filterableColumns = ['fasilitas_id'];
 
-        return view('pages.syarat.index', compact('syarat'));
+        // Cari di nama syarat atau deskripsi
+        $searchableColumns = ['nama_syarat', 'deskripsi'];
+
+        $syarat = SyaratFasilitas::with('fasilitas')
+            ->filter($request, $filterableColumns)
+            ->search($request, $searchableColumns)
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        // Ambil data fasilitas untuk pilihan di dropdown filter
+        $list_fasilitas = \App\Models\FasilitasUmum::select('fasilitas_id', 'name')->get();
+
+        return view('pages.syarat.index', compact('syarat', 'list_fasilitas'));
     }
 
     public function create()

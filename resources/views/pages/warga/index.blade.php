@@ -3,7 +3,7 @@
 @section('title', 'Data Warga')
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid vh-100">
         <!-- Header dengan Tombol Tambah -->
         <div class="d-flex justify-content-between align-items-center mb-4 mt-5">
             <div>
@@ -16,7 +16,34 @@
                 <i class="bi bi-plus-circle me-2"></i> Tambah Warga
             </a>
         </div>
-
+            <form method="GET" action="{{ route('warga.index') }}" class="mb-3">
+                <div class="row">
+                    <div class="col-md-2">
+                        <select name="jenis_kelamin" class="form-select" onchange="this.form.submit()">
+                            <option value="" selected>Semua</option>
+                            <option value="L" {{ request('jenis_kelamin') == 'L' ? 'selected' : '' }}>Laki-laki</option>
+                            <option value="P" {{ request('jenis_kelamin') == 'P' ? 'selected' : '' }}>Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control" id="exampleInputIconRight"
+                                value="{{request('search')}}" placeholder="Search" aria-label="Search">
+                            <button type="submit" class="input-group-text" id="basic-addon2">
+                                <svg class="icon icon-xxs" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                            @if(request('search'))
+							<a href="{{ request()->fullUrlWithQuery(['search'=> null]) }}" class="btn btn-outline-secondary ml-3" id="clear-search"> Clear</a>
+					        @endif
+                        </div>
+                    </div>
+                </div>
+            </form>
         <!-- Data Warga dalam Card Grid -->
         <div class="row">
             @forelse ($warga as $item)
@@ -106,215 +133,9 @@
         </div>
 
         <!-- Pagination -->
-        @if ($warga->hasPages())
-            <div class="d-flex justify-content-between align-items-center mt-5 mb-4">
-                <!-- Info Results -->
-                <div class="text-muted">
-                    <small>
-                        Menampilkan {{ ($warga->currentPage() - 1) * $warga->perPage() + 1 }}
-                        sampai {{ min($warga->currentPage() * $warga->perPage(), $warga->total()) }}
-                        dari {{ $warga->total() }} warga
-                    </small>
-                </div>
-
-                <!-- Pagination Controls -->
-                <nav aria-label="Page navigation">
-                    <ul class="pagination mb-0" style="gap: 6px;">
-                        {{-- Previous Page Link --}}
-                        @if ($warga->onFirstPage())
-                            <li class="page-item disabled">
-                                <span class="page-link rounded-circle p-0 d-flex align-items-center justify-content-center"
-                                    style="width: 36px; height: 36px; background-color: #f8f9fa; border-color: #e9ecef;">
-                                    <i class="bi bi-chevron-left text-muted" style="font-size: 0.9rem;"></i>
-                                </span>
-                            </li>
-                        @else
-                            <li class="page-item">
-                                <a class="page-link rounded-circle p-0 d-flex align-items-center justify-content-center shadow-sm"
-                                    href="{{ $warga->previousPageUrl() }}" rel="prev"
-                                    style="width: 36px; height: 36px; background-color: #fff; border-color: #dee2e6; color: #6c757d;"
-                                    title="Sebelumnya">
-                                    <i class="bi bi-chevron-left" style="font-size: 0.9rem;"></i>
-                                </a>
-                            </li>
-                        @endif
-
-                        {{-- Pagination Elements --}}
-                        @php
-                            $current = $warga->currentPage();
-                            $last = $warga->lastPage();
-                            $start = max(1, $current - 2);
-                            $end = min($last, $current + 2);
-
-                            // Adjust if at the beginning
-                            if ($start == 1) {
-                                $end = min($last, 5);
-                            }
-
-                            // Adjust if at the end
-                            if ($end == $last) {
-                                $start = max(1, $last - 4);
-                            }
-                        @endphp
-
-                        {{-- First page --}}
-                        @if ($start > 1)
-                            <li class="page-item">
-                                <a class="page-link rounded-circle p-0 d-flex align-items-center justify-content-center"
-                                    href="{{ $warga->url(1) }}"
-                                    style="width: 36px; height: 36px; background-color: #f8f9fa; border: 2px solid #e9ecef; color: #6c757d; font-weight: 500; font-size: 0.9rem;"
-                                    title="Halaman 1">
-                                    1
-                                </a>
-                            </li>
-                            @if ($start > 2)
-                                <li class="page-item disabled">
-                                    <span class="page-link rounded-circle p-0 d-flex align-items-center justify-content-center"
-                                        style="width: 36px; height: 36px; background-color: transparent; border: none; color: #adb5bd; cursor: default;">
-                                        ...
-                                    </span>
-                                </li>
-                            @endif
-                        @endif
-
-                        {{-- Page Numbers --}}
-                        @for ($page = $start; $page <= $end; $page++)
-                            @if ($page == $warga->currentPage())
-                                <li class="page-item active">
-                                    <span class="page-link rounded-circle p-0 d-flex align-items-center justify-content-center shadow"
-                                        style="width: 36px; height: 36px; background: linear-gradient(135deg, #a7e9af, #86c8bc); border: none; color: #fff; font-weight: 600; font-size: 0.9rem;">
-                                        {{ $page }}
-                                    </span>
-                                </li>
-                            @else
-                                <li class="page-item">
-                                    <a class="page-link rounded-circle p-0 d-flex align-items-center justify-content-center"
-                                        href="{{ $warga->url($page) }}"
-                                        style="width: 36px; height: 36px; background-color: #f8f9fa; border: 2px solid #e9ecef; color: #6c757d; font-weight: 500; font-size: 0.9rem;"
-                                        title="Halaman {{ $page }}">
-                                        {{ $page }}
-                                    </a>
-                                </li>
-                            @endif
-                        @endfor
-
-                        {{-- Last page --}}
-                        @if ($end < $last)
-                            @if ($end < $last - 1)
-                                <li class="page-item disabled">
-                                    <span class="page-link rounded-circle p-0 d-flex align-items-center justify-content-center"
-                                        style="width: 36px; height: 36px; background-color: transparent; border: none; color: #adb5bd; cursor: default;">
-                                        ...
-                                    </span>
-                                </li>
-                            @endif
-                            <li class="page-item">
-                                <a class="page-link rounded-circle p-0 d-flex align-items-center justify-content-center"
-                                    href="{{ $warga->url($last) }}"
-                                    style="width: 36px; height: 36px; background-color: #f8f9fa; border: 2px solid #e9ecef; color: #6c757d; font-weight: 500; font-size: 0.9rem;"
-                                    title="Halaman {{ $last }}">
-                                    {{ $last }}
-                                </a>
-                            </li>
-                        @endif
-
-                        {{-- Next Page Link --}}
-                        @if ($warga->hasMorePages())
-                            <li class="page-item">
-                                <a class="page-link rounded-circle p-0 d-flex align-items-center justify-content-center shadow-sm"
-                                    href="{{ $warga->nextPageUrl() }}" rel="next"
-                                    style="width: 36px; height: 36px; background-color: #fff; border-color: #dee2e6; color: #6c757d;"
-                                    title="Selanjutnya">
-                                    <i class="bi bi-chevron-right" style="font-size: 0.9rem;"></i>
-                                </a>
-                            </li>
-                        @else
-                            <li class="page-item disabled">
-                                <span class="page-link rounded-circle p-0 d-flex align-items-center justify-content-center"
-                                    style="width: 36px; height: 36px; background-color: #f8f9fa; border-color: #e9ecef;">
-                                    <i class="bi bi-chevron-right text-muted" style="font-size: 0.9rem;"></i>
-                                </span>
-                            </li>
-                        @endif
-                    </ul>
-                </nav>
-            </div>
-
-            <style>
-                .pagination .page-link {
-                    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-
-                .pagination .page-link:hover:not(.disabled):not(.active) {
-                    transform: translateY(-2px) scale(1.05);
-                    background-color: #fff !important;
-                    border-color: #a7e9af !important;
-                    box-shadow: 0 4px 10px rgba(167, 233, 175, 0.3) !important;
-                    color: #5a8c7e !important;
-                }
-
-                .pagination .page-item.active .page-link {
-                    animation: gentlePulse 2s infinite;
-                    box-shadow: 0 4px 12px rgba(134, 200, 188, 0.3) !important;
-                }
-
-                @keyframes gentlePulse {
-
-                    0%,
-                    100% {
-                        transform: scale(1);
-                    }
-
-                    50% {
-                        transform: scale(1.04);
-                    }
-                }
-
-                .pagination {
-                    align-items: center;
-                    margin: 0;
-                }
-
-                .pagination .page-item:first-child .page-link,
-                .pagination .page-item:last-child .page-link {
-                    background-color: #f0f9ff !important;
-                    border-color: #cce7ff !important;
-                }
-
-                .pagination .page-item:first-child .page-link:hover:not(.disabled),
-                .pagination .page-item:last-child .page-link:hover:not(.disabled) {
-                    background-color: #e6f7ff !important;
-                    border-color: #86c8bc !important;
-                }
-
-                /* Efek imut untuk angka */
-                .pagination .page-link:not(.active) {
-                    position: relative;
-                    overflow: hidden;
-                }
-
-                .pagination .page-link:not(.active)::before {
-                    content: '';
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    width: 0;
-                    height: 0;
-                    border-radius: 50%;
-                    background-color: rgba(167, 233, 175, 0.1);
-                    transform: translate(-50%, -50%);
-                    transition: width 0.3s, height 0.3s;
-                }
-
-                .pagination .page-link:not(.active):hover::before {
-                    width: 100%;
-                    height: 100%;
-                }
-            </style>
-        @endif
+        <div class="mt-3">
+            {{ $warga->links('pagination::bootstrap-5') }}
+        </div>
     </div>
 
     <style>

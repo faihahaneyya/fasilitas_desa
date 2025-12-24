@@ -9,11 +9,23 @@ use Illuminate\Http\Request;
 
 class PetugasFasilitasController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Menggunakan with() agar tidak terjadi query berulang (N+1 Problem)
-        $petugas = PetugasFasilitas::with(['fasilitas', 'warga'])->paginate(10);
-        return view('pages.petugas.index', compact('petugas'));
+        // Filter berdasarkan kolom peran dan fasilitas_id
+        $filterableColumns = ['peran', 'fasilitas_id'];
+        $searchableColumns = []; // Pencarian utama dilakukan via orWhereHas di Model
+
+        $petugas = PetugasFasilitas::with(['warga', 'fasilitas'])
+            ->filter($request, $filterableColumns)
+            ->search($request, $searchableColumns)
+            ->paginate(10)
+            ->withQueryString();
+
+        // Data untuk dropdown filter
+        $list_fasilitas = \App\Models\FasilitasUmum::all();
+        $list_peran = PetugasFasilitas::distinct()->pluck('peran');
+
+        return view('pages.petugas.index', compact('petugas', 'list_fasilitas', 'list_peran'));
     }
 
     public function create()

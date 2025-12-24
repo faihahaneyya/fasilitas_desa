@@ -13,7 +13,40 @@
                     <i class="bi bi-plus-lg me-1"></i> Tambah Petugas
                 </a>
             </div>
+            <form method="GET" action="{{ route('petugas.index') }}" class="mb-4">
+                <div class="row g-2">
+                    <div class="col-md-3">
+                        <select name="fasilitas_id" class="form-select" onchange="this.form.submit()">
+                            <option value="">-- Semua Fasilitas --</option>
+                            @foreach($list_fasilitas as $f)
+                                <option value="{{ $f->fasilitas_id }}" {{ request('fasilitas_id') == $f->fasilitas_id ? 'selected' : '' }}>
+                                    {{ $f->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
 
+                    <div class="col-md-2">
+                        <select name="peran" class="form-select" onchange="this.form.submit()">
+                            <option value="">-- Semua Peran --</option>
+                            @foreach($list_peran as $p)
+                                <option value="{{ $p }}" {{ request('peran') == $p ? 'selected' : '' }}>{{ $p }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control" value="{{ request('search') }}"
+                                placeholder="Cari nama petugas...">
+                            <button type="submit" class="btn btn-primary">Cari</button>
+                            @if(request()->anyFilled(['search', 'fasilitas_id', 'peran']))
+                                <a href="{{ route('petugas.index') }}" class="btn btn-outline-secondary">Reset</a>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </form>
             @if(session('success'))
                 <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm" role="alert">
                     <i class="bi bi-check-circle me-2"></i> {{ session('success') }}
@@ -39,7 +72,8 @@
                                     </div>
                                     <div style="flex: 1;">
                                         <h6 class="mb-0 fw-bold text-truncate" style="max-width: 150px;">
-                                            {{ $item->warga->nama }}</h6>
+                                            {{ $item->warga->nama }}
+                                        </h6>
                                         <small class="text-muted d-block">NIK: {{ $item->warga->no_ktp }}</small>
                                     </div>
                                 </div>
@@ -89,17 +123,9 @@
                 @endforelse
             </div>
 
-            @if ($petugas->hasPages())
-                <div class="mt-5 d-flex flex-column flex-md-row justify-content-between align-items-center">
-                    <p class="text-muted small mb-3 mb-md-0">
-                        Menampilkan <strong>{{ $petugas->firstItem() }}</strong> - <strong>{{ $petugas->lastItem() }}</strong>
-                        dari <strong>{{ $petugas->total() }}</strong> petugas
-                    </p>
-                    <div>
-                        {{ $petugas->links() }}
-                    </div>
-                </div>
-            @endif
+            <div class="mt-3">
+                {{ $petugas->links('pagination::bootstrap-5') }}
+            </div>
         </div>
     </div>
 @endsection
