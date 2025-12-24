@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Builder;
 
 
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;

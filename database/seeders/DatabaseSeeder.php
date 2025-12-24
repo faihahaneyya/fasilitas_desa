@@ -16,16 +16,19 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name'  => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
 
         $this->call([
-            WargaSeeder::class,
-            FasilitasUmumSeeder::class,
-            PeminjamanFasilitasSeeder::class,
-            PembayaranFasilitasSeeder::class,
+            User::class,               // Akun login admin
+            WargaSeeder::class,              // Data warga (master)
+            FasilitasUmumSeeder::class,      // Data fasilitas (master)
+            PeminjamanFasilitasSeeder::class,// Peminjaman (tergantung fasilitas & warga)
+            PembayaranFasilitasSeeder::class,// Pembayaran (tergantung peminjaman)
+            SyaratFasilitasSeeder::class,    // Syarat (tergantung fasilitas)
+            PetugasFasilitasSeeder::class,   // Petugas (tergantung fasilitas & warga)
         ]);
     }
 }

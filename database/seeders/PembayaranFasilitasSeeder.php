@@ -12,27 +12,25 @@ class PembayaranFasilitasSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
 
-        // Ambil ID peminjaman yang valid (yang memiliki biaya > 0)
-        $peminjamans = DB::table('peminjaman_fasilitas')
+        // Gunakan collect() untuk membungkus hasil query agar fungsi ->random() pasti jalan
+        $peminjamans = collect(DB::table('peminjaman_fasilitas')
             ->where('total_biaya', '>', 0)
-            ->get();
+            ->get());
 
         if ($peminjamans->isEmpty()) {
-            $this->command->warn("Tidak ada data peminjaman dengan biaya > 0. Jalankan PeminjamanFasilitasSeeder dulu!");
+            $this->command->warn("Data peminjaman kosong. Pastikan PeminjamanFasilitasSeeder sudah dijalankan.");
             return;
         }
 
-        // Looping sebanyak 100 kali
         for ($i = 0; $i < 100; $i++) {
-            // Ambil satu data peminjaman secara acak dari koleksi yang ada
             $pinjam = $peminjamans->random();
 
-            // Logika tanggal aman (seperti yang Anda miliki sebelumnya)
-            $startDate = strtotime($pinjam->tanggal_mulai) > time() ? 'now' : $pinjam->tanggal_mulai;
+            // Logika pencegahan error "Start date must be anterior to end date"
+            $start = strtotime($pinjam->tanggal_mulai) > time() ? 'now' : $pinjam->tanggal_mulai;
 
             DB::table('pembayaran_fasilitas')->insert([
                 'pinjam_id' => $pinjam->pinjam_id,
-                'tanggal' => $faker->dateTimeBetween($startDate, 'now')->format('Y-m-d'),
+                'tanggal' => $faker->dateTimeBetween($start, 'now')->format('Y-m-d'),
                 'jumlah' => $pinjam->total_biaya,
                 'metode' => $faker->randomElement(['Transfer Bank', 'Tunai', 'QRIS', 'E-Wallet']),
                 'keterangan' => 'Pembayaran lunas untuk tagihan #' . ($i + 1),
