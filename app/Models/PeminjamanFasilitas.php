@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 
+
 class PeminjamanFasilitas extends Model
 {
     use HasFactory, SoftDeletes;
@@ -88,6 +89,7 @@ class PeminjamanFasilitas extends Model
         return $labels[$this->status] ?? $this->status;
     }
 
+    // Scope untuk pencarian
     public function scopeFilter(Builder $query, $request, array $filterableColumns): Builder
     {
         foreach ($filterableColumns as $column) {
@@ -117,5 +119,26 @@ class PeminjamanFasilitas extends Model
             });
         }
         return $query;
+    }
+
+    // Validasi tanggal tidak boleh double booking
+    public static function isAvailable($fasilitas_id, $tanggal_mulai, $tanggal_selesai, $excludeId = null)
+    {
+        $query = self::where('fasilitas_id', $fasilitas_id)
+            ->where('status', 'approved')
+            ->where(function ($q) use ($tanggal_mulai, $tanggal_selesai) {
+                $q->whereBetween('tanggal_mulai', [$tanggal_mulai, $tanggal_selesai])
+                    ->orWhereBetween('tanggal_selesai', [$tanggal_mulai, $tanggal_selesai])
+                    ->orWhere(function ($q2) use ($tanggal_mulai, $tanggal_selesai) {
+                        $q2->where('tanggal_mulai', '<=', $tanggal_mulai)
+                            ->where('tanggal_selesai', '>=', $tanggal_selesai);
+                    });
+            });
+
+        if ($excludeId) {
+            $query->where('pinjam_id', '!=', $excludeId);
+        }
+
+        return $query->count() == 0;
     }
 }

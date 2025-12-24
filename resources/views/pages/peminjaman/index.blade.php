@@ -44,7 +44,7 @@
                             <i class="fas fa-search"></i> Cari
                         </button>
                         @if(request('search') || request('status'))
-                            <a href="{{ route('peminjaman.index') }}" class="btn btn-outline-secondary">Reset</a>
+                            <a href="{{ route('peminjaman.index') }}" class="btn btn-outline-secondary">Clear</a>
                         @endif
                     </div>
                 </div>
