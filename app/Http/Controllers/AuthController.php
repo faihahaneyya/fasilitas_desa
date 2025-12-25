@@ -15,7 +15,11 @@ class AuthController extends Controller
      */
     public function index()
     {
-        return view('pages.auth.formlogin');
+        // Jika sudah login, langsung ke dashboard
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
+        return view('pages.auth.login');
     }
 
     /**
@@ -27,14 +31,14 @@ class AuthController extends Controller
     }
 
     /**
-     * Memproses registrasi (TANPA ROLE DAN IS_ACTIVE)
+     * Memproses registrasi (DENGAN ROLE)
      */
     public function register(Request $request)
     {
         // Validasi input
         $validator = Validator::make($request->all(), [
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|string|email|max:255|unique:users',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -44,60 +48,62 @@ class AuthController extends Controller
                 ->withInput();
         }
 
-        // === PERBAIKAN: HANYA 3 KOLOM YANG ADA ===
+        // === SEKARANG MENDUKUNG KOLOM ROLE ===
         $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
+            'name' => $request->name,
+            'email' => $request->email,
             'password' => Hash::make($request->password),
-            // JANGAN TAMBAH 'role' dan 'is_active'!
+            'role' => 'user', // Default saat daftar adalah 'user'
         ]);
 
         // Login otomatis setelah registrasi
         Auth::login($user);
 
-        // Redirect ke dashboard
         return redirect()->route('dashboard')
             ->with('success', 'Registrasi berhasil! Selamat datang, ' . $user->name . '!');
     }
 
     /**
-     * Proses login (TANPA CEK ROLE)
+     * Proses login (DENGAN REDIRECT BERDASARKAN ROLE)
      */
-   public function login(Request $request)
-{
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required|min:8',
-    ]);
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+        ]);
 
-    $credentials = $request->only('email', 'password');
+        $credentials = $request->only('email', 'password');
 
-    if (Auth::attempt($credentials)) {
-        $request->session()->regenerate();
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
 
-        $user = Auth::user();
+            $user = Auth::user();
 
-        // === HAPUS/HAPUS SEMUA YANG CEK ROLE ===
-        // Karena kolom 'role' belum ada di database!
+            // Opsional: Logika redirect berbeda berdasarkan role
+            if ($user->role === 'admin') {
+                return redirect()->route('dashboard')
+                    ->with('success', 'Selamat datang Admin, ' . $user->name);
+            }
 
-        // Redirect ke dashboard tanpa cek role
-        return redirect()->route('dashboard')
-            ->with('success', 'Login berhasil!');
+            return redirect()->route('dashboard')
+                ->with('success', 'Login berhasil!');
+        }
+
+        return back()->withErrors([
+            'email' => 'Email atau password salah.',
+        ])->onlyInput('email');
     }
 
-    return back()->withErrors([
-        'email' => 'Email atau password salah.',
-    ])->onlyInput('email');
-}
     /**
      * Proses logout
      */
     public function logout(Request $request)
     {
-        Auth::logout(); //mengeluarkan pengguna
+        Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/auth')->with('success', 'Anda telah logout.');
+        return redirect('login')->with('success', 'Anda telah logout.');
     }
 }

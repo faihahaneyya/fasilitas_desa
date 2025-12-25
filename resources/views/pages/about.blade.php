@@ -3,53 +3,359 @@
 @section('title', 'Tentang Aplikasi - Fasilitas Desa')
 
 @section('content')
-<div class="container-fluid py-5">
-    <!-- Header dengan Ilustrasi -->
-    <div class="text-center mb-5">
-        <div class="position-relative mb-4">
-            <div class="circle-illustration-large mx-auto">
-                <img src="https://cdn-icons-png.flaticon.com/512/1995/1995515.png" alt="Fasilitas Desa" class="img-fluid" style="width: 80px;">
+    <div class="container-fluid py-5">
+        <!-- Header Section -->
+        <div class="text-center mb-5">
+            <div class="position-relative mb-4">
+                <div class="system-icon-container mx-auto">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1995/1995515.png" alt="Sistem Fasilitas Desa"
+                        class="system-icon-img">
+                    <div class="icon-glow"></div>
+                </div>
             </div>
-            <div class="floating-icons">
-                <div class="floating-icon" style="top: 20px; left: 20%;">
-                    <i class="bi bi-house text-primary"></i>
-                </div>
-                <div class="floating-icon" style="top: 40px; right: 20%;">
-                    <i class="bi bi-people text-success"></i>
-                </div>
-                <div class="floating-icon" style="bottom: 20px; left: 25%;">
-                    <i class="bi bi-calendar text-warning"></i>
-                </div>
-                <div class="floating-icon" style="bottom: 40px; right: 25%;">
-                    <i class="bi bi-cash text-danger"></i>
-                </div>
+            <h1 class="display-5 fw-bold text-gradient mb-3">
+                Sistem Peminjaman Fasilitas Desa
+            </h1>
+            <p class="lead text-muted">
+                Platform digital untuk mengelola peminjaman fasilitas desa secara online
+            </p>
+            <div class="mt-4">
+                <span class="badge bg-success me-2"><i class="fas fa-check-circle me-1"></i> Transparan</span>
+                <span class="badge bg-info me-2"><i class="fas fa-bolt me-1"></i> Efisien</span>
+                <span class="badge bg-warning"><i class="fas fa-globe me-1"></i> Mudah Diakses</span>
             </div>
         </div>
-        <h1 class="display-5 fw-bold text-success mb-3">
-            Aplikasi Pengelolaan Fasilitas dan Pelayanan Warga Desa
-        </h1>
-        <p class="lead text-muted">Sistem terintegrasi untuk administrasi desa digital</p>
-    </div>
 
-    <!-- Overview Section dengan Gambar -->
-    <div class="card border-0 shadow-sm mb-5">
-        <div class="card-body p-5">
-            <div class="row align-items-center">
-                <div class="col-md-3 text-center">
-                    <div class="illustration-container mb-3">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Tentang Aplikasi" class="illustration-img">
+        <!-- About Section -->
+        <div class="row mb-5">
+            <div class="col-md-6 mb-4">
+                <div class="card about-card h-100 border-0 shadow-lg">
+                    <div class="card-header bg-primary text-white">
+                        <div class="d-flex align-items-center">
+                            <div class="icon-wrapper me-3">
+                                <i class="fas fa-info-circle fa-lg"></i>
+                            </div>
+                            <h5 class="mb-0 fw-bold">📌 Tentang Sistem</h5>
+                        </div>
                     </div>
-                    <h4 class="fw-bold text-info mb-0">Tentang Aplikasi</h4>
-                </div>
-                <div class="col-md-9">
-                    <div class="feature-card p-4">
-                        <p class="fs-5 mb-3">
-                            Sistem Fasilitas Desa adalah platform digital yang dirancang untuk memudahkan pengelolaan
-                            fasilitas umum, peminjaman barang, dan administrasi warga di lingkungan desa.
+                    <div class="card-body p-4">
+                        <p class="fs-5">
+                            Sistem digital untuk mengelola peminjaman fasilitas desa seperti balai, aula,
+                            dan lapangan secara online. Dibangun untuk memudahkan warga dan petugas dalam
+                            proses administrasi.
                         </p>
-                        <p class="mb-0 fs-5">
-                            Dengan sistem ini, seluruh proses administrasi dapat dilakukan secara terdigitalisasi,
-                            transparan, dan efisien.
+                        <div class="mt-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-building text-primary me-3 fa-lg"></i>
+                                <span>Fasilitas: Balai, Aula, Lapangan</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-users text-success me-3 fa-lg"></i>
+                                <span>Pengguna: Warga & Petugas Desa</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-laptop-code text-info me-3 fa-lg"></i>
+                                <span>Sistem: Terdigitalisasi & Terintegrasi</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card about-card h-100 border-0 shadow-lg">
+                    <div class="card-header bg-success text-white">
+                        <div class="d-flex align-items-center">
+                            <div class="icon-wrapper me-3">
+                                <i class="fas fa-bullseye fa-lg"></i>
+                            </div>
+                            <h5 class="mb-0 fw-bold">🎯 Visi & Misi</h5>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="vision-mission-item mb-4">
+                            <h6 class="fw-bold text-success mb-3">Visi:</h6>
+                            <p class="mb-0 ps-4 border-start border-success border-3">
+                                Menjadi platform terdepan dalam pengelolaan fasilitas desa yang transparan,
+                                efisien, dan mudah diakses.
+                            </p>
+                        </div>
+                        <div class="vision-mission-item">
+                            <h6 class="fw-bold text-success mb-3">Misi:</h6>
+                            <ul class="list-unstyled ps-4">
+                                <li class="mb-2">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    Menyediakan sistem peminjaman yang cepat dan terstruktur
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    Meningkatkan akuntabilitas penggunaan fasilitas umum
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    Mengoptimalkan pemanfaatan fasilitas desa secara merata
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Goals Section -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-header bg-info text-white">
+                        <div class="d-flex align-items-center">
+                            <div class="icon-wrapper me-3">
+                                <i class="fas fa-flag fa-lg"></i>
+                            </div>
+                            <h5 class="mb-0 fw-bold">✅ Tujuan Sistem</h5>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row">
+                            <div class="col-md-3 col-6 mb-4">
+                                <div class="goal-card text-center p-3">
+                                    <div class="goal-icon mb-3">
+                                        <i class="fas fa-clock text-primary fa-2x"></i>
+                                    </div>
+                                    <p class="fw-bold mb-0">Mempermudah warga mengajukan peminjaman tanpa antre</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-4">
+                                <div class="goal-card text-center p-3">
+                                    <div class="goal-icon mb-3">
+                                        <i class="fas fa-calendar-alt text-success fa-2x"></i>
+                                    </div>
+                                    <p class="fw-bold mb-0">Mencegah penjadwalan bentrok antar kegiatan</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-4">
+                                <div class="goal-card text-center p-3">
+                                    <div class="goal-icon mb-3">
+                                        <i class="fas fa-digital-tachograph text-warning fa-2x"></i>
+                                    </div>
+                                    <p class="fw-bold mb-0">Mendigitalisasi catatan administrasi fasilitas</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-4">
+                                <div class="goal-card text-center p-3">
+                                    <div class="goal-icon mb-3">
+                                        <i class="fas fa-globe-americas text-danger fa-2x"></i>
+                                    </div>
+                                    <p class="fw-bold mb-0">Memberikan akses informasi fasilitas 24/7</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Workflow Section -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-header bg-warning text-white">
+                        <div class="d-flex align-items-center">
+                            <div class="icon-wrapper me-3">
+                                <i class="fas fa-sync-alt fa-lg"></i>
+                            </div>
+                            <h5 class="mb-0 fw-bold">🔄 Alur Penggunaan Sistem</h5>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-4 workflow-container">
+                            <div class="col">
+                                <div class="step-item">
+                                    <div class="step-number">1</div>
+                                    <h6 class="fw-bold">Pilih Fasilitas</h6>
+                                    <p class="small text-muted mb-2">Cek ketersediaan di menu</p>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="step-item">
+                                    <div class="step-number">2</div>
+                                    <h6 class="fw-bold">Ajukan</h6>
+                                    <p class="small text-muted mb-2">Isi form peminjaman</p>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="step-item">
+                                    <div class="step-number">3</div>
+                                    <h6 class="fw-bold">Syarat</h6>
+                                    <p class="small text-muted mb-2">Lengkapi dokumen</p>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="step-item">
+                                    <div class="step-number">4</div>
+                                    <h6 class="fw-bold">Verifikasi</h6>
+                                    <p class="small text-muted mb-2">Tunggu tinjauan petugas</p>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="step-item">
+                                    <div class="step-number">5</div>
+                                    <h6 class="fw-bold">Bayar</h6>
+                                    <p class="small text-muted mb-2">Konfirmasi pembayaran</p>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="step-item">
+                                    <div class="step-number">6</div>
+                                    <h6 class="fw-bold">Selesai</h6>
+                                    <p class="small text-muted mb-2">Gunakan fasilitas</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-header bg-danger text-white">
+                        <div class="d-flex align-items-center">
+                            <div class="icon-wrapper me-3">
+                                <i class="fas fa-bolt fa-lg"></i>
+                            </div>
+                            <h5 class="mb-0 fw-bold">⚡ Fitur Utama Sistem</h5>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="feature-main-card p-4 h-100">
+                                    <div class="d-flex align-items-start mb-3">
+                                        <div class="feature-icon-main me-3">
+                                            <i class="fas fa-tachometer-alt text-primary"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">Dashboard Real-time</h6>
+                                            <p class="mb-0 text-muted">Pantau ketersediaan fasilitas secara langsung</p>
+                                            <a href="{{ route('dashboard') }}" class="btn btn-sm btn-primary mt-2">
+                                                Lihat Dashboard
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="feature-main-card p-4 h-100">
+                                    <div class="d-flex align-items-start mb-3">
+                                        <div class="feature-icon-main me-3">
+                                            <i class="fas fa-users text-success"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">Manajemen Warga</h6>
+                                            <p class="mb-0 text-muted">Data peminjam terintegrasi dan terkelola</p>
+                                            <a href="{{ route('warga.index') }}" class="btn btn-sm btn-success mt-2">
+                                                Kelola Warga
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="feature-main-card p-4 h-100">
+                                    <div class="d-flex align-items-start mb-3">
+                                        <div class="feature-icon-main me-3">
+                                            <i class="fas fa-calendar-week text-warning"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">Kalender Peminjaman</h6>
+                                            <p class="mb-0 text-muted">Hindari bentrok jadwal dengan kalender interaktif</p>
+                                            <a href="{{ route('peminjaman.calendar') }}"
+                                                class="btn btn-sm btn-warning text-white mt-2">
+                                                Lihat Kalender
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="feature-main-card p-4 h-100">
+                                    <div class="d-flex align-items-start mb-3">
+                                        <div class="feature-icon-main me-3">
+                                            <i class="fas fa-credit-card text-info"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">Sistem Pembayaran Digital</h6>
+                                            <p class="mb-0 text-muted">Catatan pembayaran otomatis dan terstruktur</p>
+                                            <a href="{{ route('pembayaran-fasilitas.index') }}"
+                                                class="btn btn-sm btn-info text-white mt-2">
+                                                Kelola Pembayaran
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="feature-main-card p-4 h-100">
+                                    <div class="d-flex align-items-start mb-3">
+                                        <div class="feature-icon-main me-3">
+                                            <i class="fas fa-file-alt text-danger"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">Pengelolaan Syarat</h6>
+                                            <p class="mb-0 text-muted">Persyaratan sesuai jenis fasilitas</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="feature-main-card p-4 h-100">
+                                    <div class="d-flex align-items-start mb-3">
+                                        <div class="feature-icon-main me-3">
+                                            <i class="fas fa-user-shield text-dark"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">Role-based Access</h6>
+                                            <p class="mb-0 text-muted">Admin, Petugas, dan Warga memiliki akses berbeda</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Access Section -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center py-4">
+                        <h4 class="fw-bold mb-4">🚀 Mulai Gunakan Sistem</h4>
+                        <div class="d-flex flex-wrap justify-content-center gap-3">
+                            <a href="{{ route('fasilitas.index') }}" class="btn btn-lg btn-primary">
+                                <i class="fas fa-building me-2"></i> Lihat Fasilitas
+                            </a>
+                            <a href="{{ route('peminjaman.index') }}" class="btn btn-lg btn-success">
+                                <i class="fas fa-calendar-plus me-2"></i> Ajukan Peminjaman
+                            </a>
+                            <a href="{{ route('dashboard') }}" class="btn btn-lg btn-info text-white">
+                                <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                            </a>
+                            <a href="{{ url('/') }}" class="btn btn-lg btn-outline-secondary">
+                                <i class="fas fa-home me-2"></i> Halaman Utama
+                            </a>
+                        </div>
+                        <p class="text-muted mt-4 mb-0">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Sistem aktif 24/7 - Akses kapan saja, di mana saja
                         </p>
                     </div>
                 </div>
@@ -57,568 +363,227 @@
         </div>
     </div>
 
-    <!-- Features Section -->
-    <h2 class="fw-bold text-center mb-5">
-        <div class="icon-title">
-            <i class="bi bi-stars text-warning"></i>
-        </div>
-        Fitur Unggulan
-    </h2>
-
-    <!-- Feature 1: Data Warga -->
-    <div class="row mb-5 align-items-center">
-        <div class="col-md-4 text-center">
-            <div class="feature-image-container mb-4">
-                <img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png" alt="Data Warga" class="feature-image">
-                <div class="feature-badge">101+</div>
-            </div>
-            <h4 class="fw-bold mb-3">Data Warga</h4>
-        </div>
-        <div class="col-md-8">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body p-4">
-                    <p class="fs-5 mb-3">
-                        Kelola data seluruh warga desa secara terpusat. Tersedia informasi lengkap
-                        seperti NIK, agama, pekerjaan, kontak, dan data penting lainnya.
-                    </p>
-                    <div class="feature-points">
-                        <div class="point-item">
-                            <div class="point-icon">
-                                <i class="bi bi-check-circle-fill"></i>
-                            </div>
-                            <span>Total: 101 warga terdaftar</span>
-                        </div>
-                        <div class="point-item">
-                            <div class="point-icon">
-                                <i class="bi bi-search"></i>
-                            </div>
-                            <span>Pencarian cepat dan akurat</span>
-                        </div>
-                        <div class="point-item">
-                            <div class="point-icon">
-                                <i class="bi bi-arrow-clockwise"></i>
-                            </div>
-                            <span>Update data real-time</span>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <a href="{{ route('warga.index') }}" class="btn btn-primary">
-                            <i class="bi bi-arrow-right me-2"></i> Akses Data Warga
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Feature 2: Peminjaman Fasilitas -->
-    <div class="row mb-5 align-items-center">
-        <div class="col-md-4 text-center order-md-2">
-            <div class="feature-image-container mb-4">
-                <img src="https://cdn-icons-png.flaticon.com/512/3652/3652191.png" alt="Peminjaman Fasilitas" class="feature-image">
-                <div class="feature-badge bg-success">✓</div>
-            </div>
-            <h4 class="fw-bold mb-3">Peminjaman Fasilitas</h4>
-        </div>
-        <div class="col-md-8 order-md-1">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body p-4">
-                    <p class="fs-5 mb-3">
-                        Sistem peminjaman fasilitas umum desa seperti aula, lapangan, dan peralatan.
-                        Dilengkapi dengan kalender peminjaman dan tracking status.
-                    </p>
-                    <div class="feature-points">
-                        <div class="point-item">
-                            <div class="point-icon">
-                                <i class="bi bi-calendar-week"></i>
-                            </div>
-                            <span>Kalender peminjaman interaktif</span>
-                        </div>
-                        <div class="point-item">
-                            <div class="point-icon">
-                                <i class="bi bi-tags"></i>
-                            </div>
-                            <span>Multi-status peminjaman</span>
-                        </div>
-                        <div class="point-item">
-                            <div class="point-icon">
-                                <i class="bi bi-bell"></i>
-                            </div>
-                            <span>Notifikasi & reminder otomatis</span>
-                        </div>
-                    </div>
-                    <div class="mt-4 d-flex gap-2">
-                        <a href="{{ route('peminjaman.index') }}" class="btn btn-success">
-                            <i class="bi bi-list me-2"></i> Lihat Peminjaman
-                        </a>
-                        <a href="{{ route('peminjaman.calendar') }}" class="btn btn-outline-success">
-                            <i class="bi bi-calendar-week me-2"></i> Kalender
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Feature 3: Fasilitas Umum -->
-    <div class="row mb-5 align-items-center">
-        <div class="col-md-4 text-center">
-            <div class="feature-image-container mb-4">
-                <img src="https://cdn-icons-png.flaticon.com/512/619/619032.png" alt="Fasilitas Umum" class="feature-image">
-                <div class="feature-badge bg-warning">10+</div>
-            </div>
-            <h4 class="fw-bold mb-3">Fasilitas Umum</h4>
-        </div>
-        <div class="col-md-8">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body p-4">
-                    <p class="fs-5 mb-3">
-                        Inventarisasi dan pengelolaan fasilitas umum yang dimiliki desa.
-                        Setiap fasilitas dilengkapi informasi kapasitas, kondisi, dan ketersediaan.
-                    </p>
-                    <div class="feature-points">
-                        <div class="point-item">
-                            <div class="point-icon">
-                                <i class="bi bi-list-check"></i>
-                            </div>
-                            <span>Daftar fasilitas lengkap</span>
-                        </div>
-                        <div class="point-item">
-                            <div class="point-icon">
-                                <i class="bi bi-check-circle"></i>
-                            </div>
-                            <span>Status ketersediaan real-time</span>
-                        </div>
-                        <div class="point-item">
-                            <div class="point-icon">
-                                <i class="bi bi-clock-history"></i>
-                            </div>
-                            <span>History pemakaian terperinci</span>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <a href="{{ route('fasilitas.index') }}" class="btn btn-warning text-white">
-                            <i class="bi bi-arrow-right me-2"></i> Lihat Fasilitas
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Additional Features Grid -->
-    <div class="row mb-5">
-        <div class="col-md-6 mb-4">
-            <div class="card border-0 shadow-sm h-100 text-center feature-card-small">
-                <div class="card-body p-4">
-                    <div class="feature-icon-container mb-3">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="Sistem Pembayaran" class="feature-icon">
-                    </div>
-                    <h5 class="fw-bold mb-3">Sistem Pembayaran</h5>
-                    <p class="text-muted mb-4">
-                        Kelola pembayaran sewa fasilitas dan iuran warga secara digital dengan tracking pembayaran.
-                    </p>
-                    <a href="{{ route('pembayaran-fasilitas.index') }}" class="btn btn-danger">
-                        <i class="bi bi-credit-card me-2"></i> Kelola Pembayaran
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 mb-4">
-            <div class="card border-0 shadow-sm h-100 text-center feature-card-small">
-                <div class="card-body p-4">
-                    <div class="feature-icon-container mb-3">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135760.png" alt="Dashboard & Laporan" class="feature-icon">
-                    </div>
-                    <h5 class="fw-bold mb-3">Dashboard & Laporan</h5>
-                    <p class="text-muted mb-4">
-                        Akses dashboard statistik dan laporan lengkap untuk monitoring kegiatan desa.
-                    </p>
-                    <a href="{{ route('dashboard') }}" class="btn btn-info text-white">
-                        <i class="bi bi-speedometer2 me-2"></i> Lihat Dashboard
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Stats Section dengan Ikon -->
-    <div class="card border-0 shadow-sm mb-5">
-        <div class="card-body p-5">
-            <h3 class="fw-bold text-center mb-5">
-                <div class="icon-title">
-                    <i class="bi bi-bar-chart text-success"></i>
-                </div>
-                Statistik Sistem
-            </h3>
-            <div class="row text-center">
-                <div class="col-md-3 col-6 mb-4">
-                    <div class="stat-icon-container">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png" alt="Warga" class="stat-icon">
-                    </div>
-                    <h2 class="fw-bold text-primary mt-3">101</h2>
-                    <p class="text-muted mb-0">Warga Terdaftar</p>
-                </div>
-                <div class="col-md-3 col-6 mb-4">
-                    <div class="stat-icon-container">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3652/3652191.png" alt="Peminjaman" class="stat-icon">
-                    </div>
-                    <h2 class="fw-bold text-success mt-3">{{ \App\Models\PeminjamanFasilitas::count() ?? '0' }}</h2>
-                    <p class="text-muted mb-0">Total Peminjaman</p>
-                </div>
-                <div class="col-md-3 col-6 mb-4">
-                    <div class="stat-icon-container">
-                        <img src="https://cdn-icons-png.flaticon.com/512/619/619032.png" alt="Fasilitas" class="stat-icon">
-                    </div>
-                    <h2 class="fw-bold text-warning mt-3">{{ \App\Models\FasilitasUmum::count() ?? '0' }}</h2>
-                    <p class="text-muted mb-0">Fasilitas Tersedia</p>
-                </div>
-                <div class="col-md-3 col-6 mb-4">
-                    <div class="stat-icon-container">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="Transaksi" class="stat-icon">
-                    </div>
-                    <h2 class="fw-bold text-danger mt-3">Rp {{ number_format(\App\Models\PeminjamanFasilitas::sum('total_biaya') ?? 0, 0, ',', '.') }}</h2>
-                    <p class="text-muted mb-0">Total Transaksi</p>
-                </div>
-            </div>
-        </div>
-        <!-- SECTION: KENALI PENGEMBANG -->
-<div class="row justify-content-center mb-5">
-    <div class="col-lg-8">
-        <div class="card border-0 shadow-lg developer-intro-card">
-            <div class="card-body p-5 text-center">
-                <div class="developer-badge mb-4">
-                    <div class="badge-circle">
-                        <i class="fas fa-code fa-2x"></i>
-                    </div>
-                </div>
-
-                <h3 class="fw-bold text-dark mb-3">
-                    <span class="text-success">Dikembangkan Oleh</span><br>
-                    Faiha Haneyya Arrumaisha
-                </h3>
-
-                <div class="developer-info mb-4">
-                    <p class="text-muted mb-2">
-                        <i class="fas fa-graduation-cap me-2 text-primary"></i>
-                        Mahasiswa Sistem Informasi - Universitas Mercu Buana
-                    </p>
-                    <p class="text-muted mb-2">
-                        <i class="fas fa-id-card me-2 text-warning"></i>
-                        NIM: 2457301103
-                    </p>
-                    <p class="text-muted">
-                        <i class="fas fa-calendar-alt me-2 text-success"></i>
-                        Proyek ini dikembangkan sejak Desember 2024
-                    </p>
-                </div>
-
-                <div class="d-flex flex-wrap justify-content-center gap-3">
-                    <!-- TOMBOL KE HALAMAN PENGEMBANG -->
-                    <a href="{{ url('/developer') }}"
-                       class="btn-developer btn-lg">
-                        <i class="fas fa-user-tie me-2"></i>
-                        Lihat Profil Pengembang
-                    </a>
-
-                    <a href="mailto:cecefaiha@gmail.com"
-                       class="btn-outline-developer btn-lg">
-                        <i class="fas fa-envelope me-2"></i>
-                        Hubungi Developer
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Footer Section dengan Tombol -->
-<div class="text-center mt-5 pt-5 border-top">
-    <h5 class="fw-bold mb-4">Akses Menu Lainnya</h5>
-    <div class="d-flex flex-wrap justify-content-center gap-3 footer-buttons">
-        <a href="{{ url('/') }}" class="btn btn-success">
-            <i class="fas fa-home me-2"></i> Halaman Utama
-        </a>
-        <a href="{{ url('/developer') }}" class="btn btn-outline-success">
-            <i class="fas fa-user me-2"></i> Profil Developer
-        </a>
-    </div>
-</div>
-    </div>
-
-    <!-- Technology Stack dengan Logo -->
-    <div class="text-center">
-        <div class="icon-title mb-3">
-            <i class="bi bi-cpu text-dark"></i>
-        </div>
-        <h4 class="fw-bold mb-4">Dibangun Dengan Teknologi Terkini</h4>
-        <div class="d-flex flex-wrap justify-content-center gap-4">
-            <div class="tech-logo">
-                <img src="https://cdn-icons-png.flaticon.com/512/5969/5968322.png" alt="Laravel" class="tech-img">
-                <span class="d-block mt-2 fw-bold">Laravel</span>
-            </div>
-            <div class="tech-logo">
-                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968332.png" alt="PHP" class="tech-img">
-                <span class="d-block mt-2 fw-bold">PHP 8+</span>
-            </div>
-            <div class="tech-logo">
-                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968313.png" alt="MySQL" class="tech-img">
-                <span class="d-block mt-2 fw-bold">MySQL</span>
-            </div>
-            <div class="tech-logo">
-                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968672.png" alt="Bootstrap" class="tech-img">
-                <span class="d-block mt-2 fw-bold">Bootstrap 5</span>
-            </div>
-            <div class="tech-logo">
-                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" alt="JavaScript" class="tech-img">
-                <span class="d-block mt-2 fw-bold">JavaScript</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<style>
-    /* Illustration Styles */
-    .circle-illustration-large {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #198754, #20c997);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 10px 30px rgba(25, 135, 84, 0.2);
-        margin: 0 auto;
-        position: relative;
-        z-index: 1;
-    }
-
-    .floating-icons {
-        position: relative;
-        height: 200px;
-        width: 100%;
-        margin-top: -100px;
-    }
-
-    .floating-icon {
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        animation: float 3s ease-in-out infinite;
-    }
-
-    .floating-icon:nth-child(2) { animation-delay: 0.5s; }
-    .floating-icon:nth-child(3) { animation-delay: 1s; }
-    .floating-icon:nth-child(4) { animation-delay: 1.5s; }
-
-    @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-    }
-
-    /* Feature Images */
-    .feature-image-container {
-        position: relative;
-        display: inline-block;
-    }
-
-    .feature-image {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-        padding: 20px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease;
-    }
-
-    .feature-image:hover {
-        transform: scale(1.1);
-    }
-
-    .feature-badge {
-        position: absolute;
-        top: 0;
-        right: 0;
-        background: #0d6efd;
-        color: white;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        box-shadow: 0 3px 10px rgba(13, 110, 253, 0.3);
-    }
-
-    .feature-badge.bg-success { background: #198754; }
-    .feature-badge.bg-warning { background: #ffc107; }
-
-    /* Feature Points */
-    .feature-points {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .point-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .point-icon {
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        background: #198754;
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-    }
-
-    /* Small Feature Cards */
-    .feature-card-small {
-        transition: all 0.3s ease;
-    }
-
-    .feature-card-small:hover {
-        transform: translateY(-10px);
-    }
-
-    .feature-icon-container {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto;
-        padding: 15px;
-    }
-
-    .feature-icon {
-        width: 100%;
-        height: auto;
-    }
-
-    /* Stats Section */
-    .stat-icon-container {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto;
-        padding: 15px;
-        transition: transform 0.3s ease;
-    }
-
-    .stat-icon-container:hover {
-        transform: scale(1.1);
-    }
-
-    .stat-icon {
-        width: 100%;
-        height: auto;
-    }
-
-    /* Technology Logos */
-    .tech-logo {
-        text-align: center;
-        padding: 15px;
-        background: white;
-        border-radius: 15px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        transition: all 0.3s ease;
-        min-width: 120px;
-    }
-
-    .tech-logo:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    }
-
-    .tech-img {
-        width: 50px;
-        height: 50px;
-        object-fit: contain;
-    }
-
-    /* Icon Title */
-    .icon-title {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 20px;
-    }
-
-    .icon-title i {
-        font-size: 1.5rem;
-    }
-
-    /* Illustration Container */
-    .illustration-container {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto;
-        padding: 20px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    .illustration-img {
-        width: 100%;
-        height: auto;
-    }
-
-    /* Feature Card */
-    .feature-card {
-        background: white;
-        border-radius: 15px;
-        border-left: 5px solid #0dcaf0;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-        .circle-illustration-large {
-            width: 120px;
-            height: 120px;
+    <style>
+        /* System Icon Container */
+        .system-icon-container {
+            width: 140px;
+            height: 140px;
+            position: relative;
+            margin-bottom: 30px;
         }
 
-        .feature-image {
-            width: 100px;
-            height: 100px;
+        .system-icon-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: relative;
+            z-index: 2;
         }
 
-        .tech-logo {
-            min-width: 100px;
+        .icon-glow {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(135deg, rgba(25, 135, 84, 0.1), rgba(32, 201, 151, 0.1));
+            border-radius: 50%;
+            z-index: 1;
+            animation: pulse 2s ease-in-out infinite;
         }
-    }
-</style>
 
-<!-- Add Font Awesome for icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+        }
+
+        /* Text Gradient */
+        .text-gradient {
+            background: linear-gradient(135deg, #198754, #20c997);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* About Cards */
+        .about-card {
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .about-card .card-header {
+            border-bottom: none;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .icon-wrapper {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Goal Cards */
+        .goal-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .goal-card:hover {
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .goal-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(13, 110, 253, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        /* Workflow Steps */
+        .workflow-steps {
+            display: flex;
+            overflow-x: auto;
+            padding: 20px 0;
+            gap: 20px;
+        }
+
+        .step-item {
+            flex: 0 0 auto;
+            width: 180px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffc107, #ff6b35);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 15px;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .step-content {
+            background: white;
+            padding: 20px 15px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            height: 100%;
+        }
+
+        .step-connector {
+            display: flex;
+            align-items: center;
+            color: #6c757d;
+            font-size: 1.5rem;
+        }
+
+        /* Feature Cards */
+        .feature-main-card {
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid #0d6efd;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .feature-main-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .feature-icon-main {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(13, 110, 253, 0.1), rgba(25, 135, 84, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .workflow-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .step-item {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .step-connector {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+
+            .step-content {
+                text-align: left;
+            }
+
+            .d-flex.flex-wrap {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .d-flex.flex-wrap .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .system-icon-container {
+                width: 100px;
+                height: 100px;
+            }
+
+            .goal-card {
+                padding: 15px;
+            }
+
+            .feature-main-card {
+                padding: 20px;
+            }
+        }
+    </style>
+
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 @endsection

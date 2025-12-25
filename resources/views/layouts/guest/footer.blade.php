@@ -96,14 +96,6 @@
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="{{ route('peminjaman.calendar') }}" class="text-decoration-none text-dark d-flex align-items-center">
-                            <div class="circle-icon-xs bg-info bg-opacity-10 me-2">
-                                <i class="bi bi-calendar-week text-info"></i>
-                            </div>
-                            Kalender
-                        </a>
-                    </li>
-                    <li class="mb-2">
                         <a href="{{ route('dashboard') }}" class="text-decoration-none text-dark d-flex align-items-center">
                             <div class="circle-icon-xs bg-primary bg-opacity-10 me-2">
                                 <i class="bi bi-graph-up text-primary"></i>

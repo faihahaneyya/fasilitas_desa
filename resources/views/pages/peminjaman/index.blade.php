@@ -219,29 +219,6 @@
                                     class="btn btn-sm btn-outline-warning" title="Edit">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-
-                                <!-- Quick Actions untuk Pending -->
-                                @if ($item->status == 'pending')
-                                    <form action="{{ route('peminjaman.status', $item->pinjam_id) }}" method="POST"
-                                        class="d-inline">
-                                        @csrf
-                                        <input type="hidden" name="status" value="approved">
-                                        <button type="submit" class="btn btn-sm btn-outline-success" title="Setujui"
-                                            onclick="return confirm('Setujui peminjaman?')">
-                                            <i class="bi bi-check"></i>
-                                        </button>
-                                    </form>
-                                    <form action="{{ route('peminjaman.status', $item->pinjam_id) }}" method="POST"
-                                        class="d-inline">
-                                        @csrf
-                                        <input type="hidden" name="status" value="rejected">
-                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Tolak"
-                                            onclick="return confirm('Tolak peminjaman?')">
-                                            <i class="bi bi-x"></i>
-                                        </button>
-                                    </form>
-                                @endif
-
                                 <!-- Delete Button -->
                                 <form action="{{ route('peminjaman.destroy', $item->pinjam_id) }}" method="POST"
                                     class="d-inline" onsubmit="return confirm('Hapus data peminjaman?')">
