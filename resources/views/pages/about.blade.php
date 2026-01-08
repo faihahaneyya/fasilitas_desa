@@ -273,14 +273,7 @@
                                         <div class="feature-icon-main me-3">
                                             <i class="fas fa-calendar-week text-warning"></i>
                                         </div>
-                                        <div>
-                                            <h6 class="fw-bold mb-1">Kalender Peminjaman</h6>
-                                            <p class="mb-0 text-muted">Hindari bentrok jadwal dengan kalender interaktif</p>
-                                            <a href="{{ route('peminjaman.calendar') }}"
-                                                class="btn btn-sm btn-warning text-white mt-2">
-                                                Lihat Kalender
-                                            </a>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>

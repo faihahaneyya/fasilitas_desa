@@ -68,7 +68,7 @@
                         <div class="d-flex justify-content-center align-items-center gap-3 mb-3">
                             <span class="badge bg-success fs-6 p-2">
                                 <i class="fas fa-id-card me-2"></i>
-                                2457301103
+                                2457301043
                             </span>
                             <span class="badge bg-primary fs-6 p-2">
                                 <i class="fas fa-graduation-cap me-2"></i>
@@ -80,11 +80,11 @@
                         <div class="mb-4">
                             <p class="text-muted mb-0">
                                 <i class="fas fa-university me-2"></i>
-                                Universitas Mercu Buana
+                                politeknik caltex riau
                             </p>
                             <p class="text-muted mb-0">
                                 <i class="fas fa-map-marker-alt me-2"></i>
-                                Jakarta, Indonesia
+                                Pekanbaru, Indonesia
                             </p>
                         </div>
                     </div>

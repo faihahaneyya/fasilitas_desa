@@ -3,8 +3,159 @@
 @section('title', 'Register')
 
 @section('content')
+    <style>
+        /* Background styling */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .background-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.2) 0%, rgba(25, 135, 84, 0.3) 100%);
+            z-index: 1;
+        }
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.4;
+            z-index: 0;
+            filter: brightness(1.05) contrast(1.1);
+        }
+
+        /* Leaf decoration */
+        .leaf-decoration {
+            position: absolute;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .leaf-1 {
+            top: 10%;
+            right: 10%;
+            width: 100px;
+            height: 100px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23198754'%3E%3Cpath d='M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5c0 1.5 1.5 3 5.5 3 2.5 0 8.5-1 8.5-1v-2.25s-4 1-6.5 1c-2 0-4-1-4-2.5C5.5 10 8 7 17 8z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+
+        .leaf-2 {
+            bottom: 15%;
+            left: 8%;
+            width: 80px;
+            height: 80px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23158746'%3E%3Cpath d='M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+
+        /* Card styling */
+        .card {
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(40, 167, 69, 0.3);
+            box-shadow: 0 10px 40px rgba(25, 135, 84, 0.15);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        /* Info panel styling */
+        .bg-success {
+            background: linear-gradient(135deg, #198754, #20c997) !important;
+        }
+
+        /* Form styling */
+        .form-label {
+            color: #495057;
+            font-weight: 500;
+        }
+
+        .form-control {
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #198754;
+            box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+        }
+
+        /* Button styling */
+        .btn-success {
+            background: linear-gradient(135deg, #198754, #20c997);
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, #157347, #198754);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(25, 135, 84, 0.3);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .card {
+                background: rgba(255, 255, 255, 0.98);
+                margin: 1rem;
+            }
+            .background-image {
+                opacity: 0.35;
+            }
+            .leaf-decoration {
+                display: none;
+            }
+            .row.g-0 {
+                flex-direction: column;
+            }
+            .col-md-6 {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .background-image {
+                opacity: 0.3;
+            }
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+
+    <!-- Background Section -->
+    <div class="background-container">
+        <div class="background-image"></div>
+        <div class="background-overlay"></div>
+        <div class="leaf-decoration leaf-1"></div>
+        <div class="leaf-decoration leaf-2"></div>
+    </div>
+
     <div class="container">
-        <div class="row justify-content-center align-items-center min-vh-100 py-5 mt-100 mb-100">
+        <div class="row justify-content-center align-items-center min-vh-100 py-5">
             <div class="col-md-8 col-lg-7">
                 <div class="card border-0 shadow">
                     <div class="row g-0">
@@ -12,10 +163,13 @@
                         <div class="col-md-6">
                             <div class="card-body p-4 p-md-5">
                                 <div class="text-center mb-4">
+                                    <div class="mb-3">
+                                        <i class="bi bi-tree display-5 text-success"></i>
+                                    </div>
                                     <h3 class="fw-bold text-success">
-                                        <i class="bi bi-person-plus-fill"></i> Daftar Akun
+                                        Daftar Akun Desa
                                     </h3>
-                                    <p class="text-muted">Buat akun baru Anda</p>
+                                    <p class="text-muted">Bergabunglah dengan komunitas desa kami</p>
                                 </div>
 
                                 <form method="POST" action="{{ route('register') }}">
@@ -104,33 +258,33 @@
                         <!-- Info Panel -->
                         <div class="col-md-6 bg-success text-white">
                             <div class="card-body p-4 p-md-5 d-flex flex-column justify-content-center h-100">
-                                <h2 class="fw-bold mb-4">Selamat Datang!</h2>
+                                <h2 class="fw-bold mb-4">Selamat Datang di Desa!</h2>
                                 <p class="mb-4">
-                                    Bergabunglah dengan kami untuk mendapatkan akses ke semua fitur:
+                                    Daftarkan diri Anda untuk mengakses fasilitas desa dengan mudah:
                                 </p>
 
                                 <ul class="list-unstyled">
                                     <li class="mb-3">
-                                        <i class="bi bi-check-circle-fill me-2"></i> Sistem manajemen modern
+                                        <i class="bi bi-check-circle-fill me-2"></i> Ajukan peminjaman fasilitas
                                     </li>
                                     <li class="mb-3">
-                                        <i class="bi bi-check-circle-fill me-2"></i> Keamanan data terjamin
+                                        <i class="bi bi-check-circle-fill me-2"></i> Pantau status peminjaman
                                     </li>
                                     <li class="mb-3">
-                                        <i class="bi bi-check-circle-fill me-2"></i> Antarmuka user-friendly
+                                        <i class="bi bi-check-circle-fill me-2"></i> Lihat ketersediaan fasilitas
                                     </li>
                                     <li class="mb-3">
-                                        <i class="bi bi-check-circle-fill me-2"></i> Dukungan teknis 24/7
+                                        <i class="bi bi-check-circle-fill me-2"></i> Bayar secara online
                                     </li>
                                     <li class="mb-3">
-                                        <i class="bi bi-check-circle-fill me-2"></i> Update fitur berkala
+                                        <i class="bi bi-check-circle-fill me-2"></i> Akses informasi desa
                                     </li>
                                 </ul>
 
                                 <div class="mt-4">
                                     <div class="alert alert-light" role="alert">
                                         <i class="bi bi-info-circle me-2 text-success"></i>
-                                        <strong>Penting!</strong> Pastikan email yang Anda gunakan valid.
+                                        <strong>Penting!</strong> Pastikan data yang Anda isi valid dan benar.
                                     </div>
                                 </div>
                             </div>

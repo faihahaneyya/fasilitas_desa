@@ -74,64 +74,76 @@
         </div>
     </section>
 
-    <!-- FEATURES SECTION -->
+     <!-- FEATURES SECTION -->
     <section class="py-5 bg-light">
         <div class="container">
             <div class="row mb-5">
                 <div class="col-lg-8 mx-auto text-center">
-                    <h2 class="fw-bold text-primary">Fasilitas Desa Kita</h2>
-                    <p class="lead text-muted">Kelola dan manfaatkan fasilitas desa dengan mudah melalui sistem kami</p>
+                    <h2 class="fw-bold text-primary display-5">Fasilitas Desa Kita</h2>
+                    <p class="lead text-muted fs-4">Kelola dan manfaatkan fasilitas desa dengan mudah melalui sistem kami</p>
                 </div>
             </div>
 
             <div class="row g-4">
                 <div class="col-md-4">
-                    <div class="card border-0 shadow-sm h-100">
-                        <div class="card-body text-center p-4">
-                            <div class="icon-wrapper mb-3">
-                                <i class="bi bi-building display-4 text-success"></i>
+                    <div class="card border-0 shadow-lg h-100 feature-card" style="border-top: 5px solid #28a745;">
+                        <div class="card-body text-center p-5">
+                            <!-- Icon Bulat untuk Fasilitas Umum -->
+                            <div class="circle-icon-wrapper mb-4">
+                                <div class="circle-icon bg-success">
+                                    <i class="fas fa-landmark fa-2x text-white"></i>
+                                </div>
                             </div>
-                            <h4 class="card-title">Fasilitas Umum</h4>
-                            <p class="card-text text-muted">
+                            <h4 class="card-title fw-bold mb-3">Fasilitas Umum</h4>
+                            <p class="card-text text-muted fs-5 mb-4">
                                 Akses informasi lengkap tentang berbagai fasilitas yang tersedia di desa
                             </p>
-                            <a href="{{ route('fasilitas.index') }}" class="btn btn-outline-success">
-                                <i class="bi bi-eye me-2"></i> Lihat Fasilitas
-                            </a>
+                            <div class="feature-action">
+                                <h5 class="feature-label text-success fw-bold">LIHAT FASILITAS</h5>
+                                <div class="feature-line mt-2"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <div class="card border-0 shadow-sm h-100">
-                        <div class="card-body text-center p-4">
-                            <div class="icon-wrapper mb-3">
-                                <i class="bi bi-calendar-check display-4 text-primary"></i>
+                    <div class="card border-0 shadow-lg h-100 feature-card" style="border-top: 5px solid #007bff;">
+                        <div class="card-body text-center p-5">
+                            <!-- Icon Bulat untuk Peminjaman -->
+                            <div class="circle-icon-wrapper mb-4">
+                                <div class="circle-icon bg-primary">
+                                    <i class="fas fa-calendar-alt fa-2x text-white"></i>
+                                </div>
                             </div>
-                            <h4 class="card-title">Peminjaman</h4>
-                            <p class="card-text text-muted">
+                            <h4 class="card-title fw-bold mb-3">Peminjaman</h4>
+                            <p class="card-text text-muted fs-5 mb-4">
                                 Ajukan peminjaman fasilitas dengan mudah dan pantau statusnya
                             </p>
-                            <a href="{{ route('peminjaman.index') }}" class="btn btn-outline-primary">
-                                <i class="bi bi-plus-circle me-2"></i> Ajukan Peminjaman
-                            </a>
+                            <div class="feature-action">
+                                <h5 class="feature-label text-primary fw-bold">AJUKAN PEMINJAMAN</h5>
+                                <div class="feature-line mt-2 bg-primary"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <div class="card border-0 shadow-sm h-100">
-                        <div class="card-body text-center p-4">
-                            <div class="icon-wrapper mb-3">
-                                <i class="bi bi-people display-4 text-warning"></i>
+                    <div class="card border-0 shadow-lg h-100 feature-card" style="border-top: 5px solid #ffc107;">
+                        <div class="card-body text-center p-5">
+                            <!-- Icon Bulat untuk Data Warga -->
+                            <div class="circle-icon-wrapper mb-4">
+                                <div class="circle-icon bg-warning">
+                                    <i class="fas fa-users fa-2x text-white"></i>
+                                </div>
                             </div>
-                            <h4 class="card-title">Data Warga</h4>
-                            <p class="card-text text-muted">
+                            <h4 class="card-title fw-bold mb-3">Data Warga</h4>
+                            <p class="card-text text-muted fs-5 mb-4">
                                 Kelola data warga secara terintegrasi untuk keperluan administrasi
                             </p>
-                            <a href="{{ route('warga.index') }}" class="btn btn-outline-warning">
-                                <i class="bi bi-person me-2"></i> Data Warga
-                            </a>
+                            <div class="feature-action">
+                                <h5 class="feature-label text-warning fw-bold">DATA WARGA</h5>
+                                <div class="feature-line mt-2 bg-warning"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -276,7 +288,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <!-- Bagian Informasi Developer -->
                                 <div class="col-md-8 p-5">
                                     <div class="developer-content">
@@ -300,7 +311,7 @@
                                                 <div class="info-text">
                                                     <small class="text-muted d-block">Program Studi</small>
                                                     <strong>Sistem Informasi</strong>
-                                                    <p class="mb-0 small text-muted">Universitas Mercu Buana</p>
+                                                    <p class="mb-0 small text-muted">Politeknik Caltex Riau</p>
                                                 </div>
                                             </div>
 
@@ -310,7 +321,7 @@
                                                 </div>
                                                 <div class="info-text">
                                                     <small class="text-muted d-block">NIM</small>
-                                                    <strong>2457301103</strong>
+                                                    <strong>2457301043</strong>
                                                 </div>
                                             </div>
 
@@ -373,17 +384,42 @@
         </div>
     </section>
 
-    <style>
+
+          <style>
         /* Custom Styles */
         .carousel-item {
-            height: 600px;
+            height: 70vh;
+            min-height: 500px;
+            max-height: 700px;
+        }
+
+        .carousel-item img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
         }
 
         .carousel-caption {
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            padding: 2rem;
-            bottom: 50px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            padding: 1.5rem 2rem;
+            bottom: 60px;
+            max-width: 700px;
+            margin: 0 auto;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .carousel-caption h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .carousel-caption p {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         }
 
         .carousel-indicators button {
@@ -391,6 +427,11 @@
             height: 12px;
             border-radius: 50%;
             margin: 0 5px;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .carousel-indicators button.active {
+            background-color: white;
         }
 
         .stat-card {
@@ -422,14 +463,194 @@
             background: rgba(25, 135, 84, 0.1);
         }
 
+        /* Feature Section Custom Styles */
+        .feature-card {
+            border-radius: 20px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            z-index: 2;
+        }
+
+        /* Circle Icon Styles */
+        .circle-icon-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .circle-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .circle-icon::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .circle-icon:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .circle-icon:hover::before {
+            opacity: 1;
+        }
+
+        .circle-icon.bg-success {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+
+        .circle-icon.bg-primary {
+            background: linear-gradient(135deg, #007bff, #0dcaf0);
+        }
+
+        .circle-icon.bg-warning {
+            background: linear-gradient(135deg, #ffc107, #fd7e14);
+        }
+
+        .circle-icon i {
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-action {
+            padding-top: 1rem;
+            position: relative;
+        }
+
+        .feature-label {
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+            padding: 0 1rem;
+        }
+
+        .feature-line {
+            height: 3px;
+            width: 60px;
+            background: #28a745;
+            margin: 0 auto;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .feature-card:hover .feature-line {
+            width: 100px;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(0.8);
+                opacity: 0.7;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .carousel-item {
+                height: 60vh;
+                min-height: 450px;
+                max-height: 600px;
+            }
+
+            .carousel-caption h2 {
+                font-size: 2rem;
+            }
+
+            .carousel-caption p {
+                font-size: 1.1rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .carousel-item {
-                height: 400px;
+                height: 50vh;
+                min-height: 400px;
+                max-height: 500px;
             }
 
             .carousel-caption {
-                padding: 1rem;
-                bottom: 20px;
+                padding: 1rem 1.5rem;
+                bottom: 40px;
+                width: 90%;
+            }
+
+            .carousel-caption h2 {
+                font-size: 1.75rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .carousel-caption p {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .circle-icon {
+                width: 80px;
+                height: 80px;
+            }
+
+            .circle-icon i {
+                font-size: 1.5rem !important;
+            }
+
+            .card-body {
+                padding: 1.5rem !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .carousel-item {
+                height: 45vh;
+                min-height: 350px;
+                max-height: 450px;
+            }
+
+            .carousel-caption {
+                padding: 0.75rem 1rem;
+                bottom: 30px;
             }
 
             .carousel-caption h2 {
@@ -439,197 +660,10 @@
             .carousel-caption p {
                 font-size: 0.9rem;
             }
-        }
-    </style>
 
-    <style>
-        /* Social Media Section */
-        .social-media-section {
-            padding: 1rem;
-            background: linear-gradient(135deg, rgba(248, 249, 250, 0.5), rgba(233, 236, 239, 0.3));
-            border-radius: 12px;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .social-media-section h6 {
-            font-weight: 600;
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
-        }
-
-        /* Social Icons Container */
-        .social-icons {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        /* Individual Social Icon */
-        .social-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-        }
-
-        /* Tooltip Styling */
-        .social-tooltip {
-            position: absolute;
-            bottom: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s, bottom 0.3s;
-            pointer-events: none;
-        }
-
-        .social-icon:hover .social-tooltip {
-            opacity: 1;
-            bottom: -25px;
-        }
-
-        /* LinkedIn Icon */
-        .social-icon.linkedin {
-            background: linear-gradient(135deg, #0077B5, #00A0DC);
-            color: white;
-        }
-
-        .social-icon.linkedin:hover {
-            background: linear-gradient(135deg, #005582, #0084B4);
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 6px 12px rgba(0, 119, 181, 0.3);
-        }
-
-        /* Instagram Icon */
-        .social-icon.instagram {
-            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
-            color: white;
-            background-size: 300% 300%;
-            animation: gradient 3s ease infinite;
-        }
-
-        @keyframes gradient {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        .social-icon.instagram:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 6px 12px rgba(225, 48, 108, 0.3);
-            animation: none;
-            background: linear-gradient(45deg, #C13584, #E1306C, #FD1D1D);
-        }
-
-        /* GitHub Icon */
-        .social-icon.github {
-            background: linear-gradient(135deg, #333333, #24292e);
-            color: white;
-        }
-
-        .social-icon.github:hover {
-            background: linear-gradient(135deg, #24292e, #000000);
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 6px 12px rgba(36, 41, 46, 0.3);
-        }
-
-        /* Email Icon */
-        .social-icon.email {
-            background: linear-gradient(135deg, #198754, #20c997);
-            color: white;
-        }
-
-        .social-icon.email:hover {
-            background: linear-gradient(135deg, #157347, #198754);
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 6px 12px rgba(25, 135, 84, 0.3);
-        }
-
-        /* Portfolio Icon */
-        .social-icon.portfolio {
-            background: linear-gradient(135deg, #6f42c1, #8a63d2);
-            color: white;
-        }
-
-        .social-icon.portfolio:hover {
-            background: linear-gradient(135deg, #5a32a3, #6f42c1);
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 6px 12px rgba(111, 66, 193, 0.3);
-        }
-
-        /* Icon Size */
-        .social-icon i {
-            font-size: 1.25rem;
-            transition: transform 0.3s;
-        }
-
-        .social-icon:hover i {
-            transform: scale(1.1);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .social-media-section {
-                padding: 0.75rem;
-            }
-
-            .social-icon {
-                width: 46px;
-                height: 46px;
-            }
-
-            .social-icon i {
-                font-size: 1.1rem;
-            }
-
-            .social-icons {
-                justify-content: center;
-            }
-
-            .d-flex.flex-wrap.gap-3 {
-                justify-content: center;
-            }
-
-            .d-flex.flex-wrap.gap-3 .btn {
-                width: 100%;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .social-icon {
-                width: 42px;
-                height: 42px;
-            }
-
-            .social-icon i {
-                font-size: 1rem;
-            }
-
-            .social-tooltip {
-                font-size: 0.7rem;
-                padding: 3px 6px;
+            .carousel-caption .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
             }
         }
     </style>
